@@ -1,0 +1,2436 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width,initial-scale=1,viewport-fit=cover"
+    />
+    <meta
+      name="description"
+      content="Personal higher-education guidance from EduRecruitment — course choice, applications, Student Finance, interviews and returning to education."
+    />
+    <title>EduRecruitment — Your future, our guidance</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Onest:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+    <script type="importmap">
+      {
+        "imports": { "lenis": "https://cdn.jsdelivr.net/npm/lenis@1.1.18/+esm" }
+      }
+    </script>
+    <style>
+      :root {
+        /* FOUNDATION LOCK v1: brand tokens are structural. See FOUNDATION_LOCK.md. */
+        --background: #fafaf8;
+        --foreground: #1b2a4a;
+        --brand: #c9a84c;
+        --brand-deep: #1b2a4a;
+        --brand-light: #e8d5b7;
+        --accent: #2c4068;
+        --surface: #f5f3ef;
+        --surface-card: #fafaf8;
+        --ink: #1b2a4a;
+        --ink-soft: #646b7a;
+        --ghost: #d9d7d0;
+        --hairline: #e6e2da;
+        --on-brand: #fafaf8;
+        --radius-card: 1.5rem;
+        --radius-card-lg: 2rem;
+        --radius-pill: 62.5rem;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      html {
+        font-size: 16px;
+      }
+      html.locked {
+        position: relative;
+        overflow: hidden;
+        height: 100%;
+      }
+      body {
+        margin: 0;
+        min-height: 100vh;
+        background: var(--background);
+        color: var(--foreground);
+        font-family: "Onest", system-ui, sans-serif;
+      }
+      h1,
+      h2,
+      h3,
+      p,
+      blockquote,
+      figure {
+        margin: 0;
+      }
+      button,
+      input,
+      textarea,
+      select {
+        font: inherit;
+      }
+      button {
+        cursor: pointer;
+      }
+      img {
+        display: block;
+        max-width: 100%;
+      }
+      a {
+        color: inherit;
+      }
+      :focus-visible {
+        outline: 2px solid var(--brand-light);
+        outline-offset: 2px;
+      }
+      .sr-only {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        padding: 0;
+        margin: -1px;
+        overflow: hidden;
+        clip: rect(0, 0, 0, 0);
+        white-space: nowrap;
+        border: 0;
+      }
+      .page {
+        width: 100%;
+        padding: 0.5rem;
+        overflow-x: clip;
+      }
+      .card-section {
+        border-radius: var(--radius-card-lg);
+      }
+      .eyebrow {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        font-size: 0.75rem;
+        font-weight: 500;
+        text-transform: uppercase;
+        letter-spacing: 0.22em;
+        color: var(--ink-soft);
+      }
+      .eyebrow::before {
+        content: "";
+        width: 0.375rem;
+        height: 0.375rem;
+        border-radius: 50%;
+        background: var(--brand);
+      }
+      .eyebrow.light {
+        color: rgba(250, 250, 248, 0.7);
+      }
+      .eyebrow.light::before {
+        background: var(--brand-light);
+      }
+      .loader {
+        position: fixed;
+        inset: 0;
+        z-index: 200;
+        display: grid;
+        place-items: center;
+        background: var(--brand-deep);
+        color: var(--on-brand);
+        transition: transform 850ms cubic-bezier(0.65, 0, 0.35, 1);
+      }
+      .loader.exit {
+        transform: translateY(-105%);
+      }
+      .loader-inner {
+        display: grid;
+        justify-items: center;
+        gap: 2rem;
+      }
+      .loader-brand {
+        display: flex;
+        align-items: center;
+        gap: 0.85rem;
+        font-size: 1.5rem;
+        font-weight: 500;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        opacity: 0;
+        transform: translateY(1rem);
+        animation: loaderBrand 0.65s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+      }
+      .brand-symbol {
+        width: 1.75rem;
+        height: 1.75rem;
+        border: 1px solid currentColor;
+        border-radius: 50%;
+        display: grid;
+        place-items: center;
+        font-size: 0.72rem;
+        letter-spacing: 0;
+      }
+      .loader-track {
+        width: 10rem;
+        height: 1px;
+        background: rgba(250, 250, 248, 0.2);
+        overflow: hidden;
+      }
+      .loader-fill {
+        height: 100%;
+        background: var(--on-brand);
+        transform: scaleX(0);
+        transform-origin: left;
+        animation: loaderFill 1280ms 120ms cubic-bezier(0.65, 0, 0.35, 1)
+          forwards;
+      }
+      @keyframes loaderBrand {
+        to {
+          opacity: 1;
+          transform: none;
+        }
+      }
+      @keyframes loaderFill {
+        to {
+          transform: scaleX(1);
+        }
+      }
+      .hero {
+        position: relative;
+        isolation: isolate;
+        overflow: hidden;
+        min-height: 36rem;
+        height: calc(100svh - 1rem);
+        display: flex;
+        flex-direction: column;
+        background: var(--brand-deep);
+        color: var(--on-brand);
+      }
+      .hero-media {
+        position: absolute;
+        inset: 0;
+        z-index: -2;
+        overflow: hidden;
+      }
+      .hero-media-inner {
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: -16%;
+        height: 132%;
+        will-change: transform;
+      }
+      .hero-media img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: center 52%;
+      }
+      .hero-shade {
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(
+          to bottom,
+          rgba(27, 42, 74, 0.78),
+          rgba(27, 42, 74, 0.28),
+          rgba(27, 42, 74, 0.86)
+        );
+        z-index: -1;
+      }
+      .header {
+        display: flex;
+        align-items: center;
+        padding: 1.5rem 1.5rem 0;
+        font-size: 0.75rem;
+        position: relative;
+        z-index: 5;
+      }
+      .nav-left {
+        display: none;
+        flex: 1;
+        gap: 2rem;
+      }
+      .nav-left a,
+      .header-action {
+        color: rgba(250, 250, 248, 0.9);
+        text-decoration: none;
+      }
+      .nav-left a:hover,
+      .header-action:hover {
+        text-decoration: underline;
+        text-underline-offset: 0.35rem;
+      }
+      .header-brand {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        font-size: 1rem;
+        font-weight: 500;
+        text-transform: uppercase;
+        letter-spacing: 0.2em;
+        text-decoration: none;
+      }
+      .header-brand .brand-symbol {
+        width: 1.25rem;
+        height: 1.25rem;
+        font-size: 0.52rem;
+      }
+      .header-right {
+        margin-left: auto;
+        flex: 1;
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+        gap: 1rem;
+      }
+      .header-action {
+        display: none;
+        background: none;
+        border: 0;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+      }
+      .burger {
+        width: 2.5rem;
+        height: 2.5rem;
+        border: 0;
+        border-radius: 50%;
+        display: grid;
+        place-content: center;
+        gap: 5px;
+        background: rgba(250, 250, 248, 0.15);
+        color: var(--on-brand);
+        backdrop-filter: blur(12px);
+      }
+      .burger span {
+        width: 1rem;
+        height: 1px;
+        background: currentColor;
+      }
+      .hero-title {
+        padding: 1rem 1.5rem 0;
+        font-size: 11.2vw;
+        font-weight: 500;
+        text-transform: uppercase;
+        line-height: 0.85;
+        letter-spacing: -0.02em;
+        white-space: nowrap;
+      }
+      .word-clip,
+      .line-clip,
+      .ghost-clip {
+        display: inline-block;
+        overflow: hidden;
+        padding-bottom: 0.14em;
+      }
+      .word-inner,
+      .line-inner,
+      .ghost-inner {
+        display: inline-block;
+        opacity: 0;
+        transform: translateY(115%);
+      }
+      .ready .hero-title .word-inner,
+      .ready .hero-tagline .line-inner,
+      .inview.visible .line-inner {
+        opacity: 1;
+        transform: none;
+        transition:
+          transform 1100ms cubic-bezier(0.16, 1, 0.3, 1) var(--delay),
+          opacity 600ms ease var(--delay);
+      }
+      .hero-bottom {
+        margin-top: auto;
+        padding: 0 1.5rem 2rem;
+        display: flex;
+        flex-direction: column;
+        gap: 1.5rem;
+      }
+      .hero-tagline {
+        font-size: 2.4rem;
+        font-weight: 500;
+        text-transform: uppercase;
+        line-height: 0.95;
+        letter-spacing: -0.02em;
+        color: rgba(250, 250, 248, 0.86);
+      }
+      .hero-tagline .line-clip {
+        display: block;
+      }
+      .hero-cluster {
+        display: flex;
+        align-items: flex-end;
+        gap: 1rem;
+      }
+      .mini-slider {
+        display: none;
+        width: 16rem;
+      }
+      .glass-card {
+        border: 1px solid rgba(250, 250, 248, 0.15);
+        background: rgba(250, 250, 248, 0.1);
+        border-radius: var(--radius-card);
+        padding: 0.75rem;
+        box-shadow: 0 1rem 3rem rgba(27, 42, 74, 0.2);
+        backdrop-filter: blur(14px);
+      }
+      .mini-card {
+        display: flex;
+        gap: 0.75rem;
+        min-height: 5rem;
+      }
+      .mini-card img {
+        width: 3.5rem;
+        height: 3.5rem;
+        object-fit: cover;
+        border-radius: 0.75rem;
+      }
+      .mini-copy {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+      }
+      .mini-kicker {
+        font-size: 0.7rem;
+        font-weight: 500;
+        text-transform: uppercase;
+        letter-spacing: 0.12em;
+      }
+      .mini-title {
+        font-size: 0.7rem;
+        text-transform: uppercase;
+        opacity: 0.8;
+        margin-top: 0.2rem;
+      }
+      .mini-link {
+        font-size: 0.65rem;
+        text-decoration: underline;
+        margin-top: 0.45rem;
+      }
+      .dots {
+        display: flex;
+        justify-content: center;
+        gap: 0.5rem;
+        margin-top: 0.75rem;
+      }
+      .dot {
+        padding: 0.375rem;
+        border: 0;
+        background: none;
+      }
+      .dot span {
+        display: block;
+        width: 0.375rem;
+        height: 0.375rem;
+        border-radius: 99rem;
+        background: rgba(250, 250, 248, 0.4);
+        transition: width 0.25s ease;
+      }
+      .dot[aria-current="true"] span {
+        width: 1.25rem;
+        background: var(--on-brand);
+      }
+      .proof-card {
+        width: 100%;
+        max-width: 20rem;
+        display: flex;
+        gap: 0.75rem;
+        align-items: stretch;
+      }
+      .proof-card-copy {
+        display: flex;
+        flex: 1;
+        flex-direction: column;
+        justify-content: space-between;
+      }
+      .proof-card strong {
+        font-size: 1.875rem;
+        font-weight: 500;
+        line-height: 1;
+      }
+      .proof-card small {
+        font-size: 0.65rem;
+        opacity: 0.8;
+      }
+      .proof-card img {
+        width: 4rem;
+        aspect-ratio: 3/4;
+        object-fit: cover;
+        border-radius: 0.75rem;
+      }
+      .avatar-row {
+        display: flex;
+        margin: 0.55rem 0;
+      }
+      .avatar-row span {
+        width: 1.25rem;
+        height: 1.25rem;
+        border-radius: 50%;
+        border: 1px solid rgba(27, 42, 74, 0.4);
+        margin-right: -0.4rem;
+        background-size: cover;
+        background-position: center;
+      }
+      .trust {
+        position: relative;
+        isolation: isolate;
+        overflow: hidden;
+        padding: 4rem 1.5rem;
+        background: var(--background);
+      }
+      .trust-top {
+        position: relative;
+        z-index: 3;
+        display: flex;
+        flex-direction: column;
+        gap: 1.25rem;
+      }
+      .percent-badge {
+        width: 7rem;
+        height: 7rem;
+        border-radius: 50%;
+        background: var(--surface);
+        display: grid;
+        place-content: center;
+        text-align: center;
+      }
+      .percent-badge strong {
+        font-size: 1.5rem;
+        font-weight: 500;
+      }
+      .percent-badge span {
+        font-size: 0.6rem;
+        color: var(--ink-soft);
+        max-width: 8em;
+      }
+      .trust-note {
+        max-width: 28rem;
+        display: flex;
+        gap: 1rem;
+        padding: 1.25rem;
+        border-radius: var(--radius-card);
+        background: var(--surface);
+      }
+      .index-chip {
+        align-self: flex-start;
+        padding: 0.5rem 1rem;
+        border-radius: 0.75rem;
+        background: var(--background);
+        font-size: 1.25rem;
+        font-weight: 500;
+      }
+      .trust-note h2 {
+        font-size: 1.125rem;
+        font-weight: 500;
+      }
+      .trust-note p {
+        margin-top: 0.45rem;
+        font-size: 0.75rem;
+        line-height: 1.65;
+        color: var(--ink-soft);
+      }
+      .ghost-heading {
+        position: relative;
+        z-index: 0;
+        margin: 3rem auto 0;
+        max-width: 88rem;
+        font-size: 8.2vw;
+        font-weight: 500;
+        text-transform: uppercase;
+        line-height: 1.02;
+        letter-spacing: -0.025em;
+        user-select: none;
+        pointer-events: none;
+      }
+      .ghost-row {
+        display: flex;
+        justify-content: space-between;
+        column-gap: 0.75rem;
+      }
+      .ghost-inner {
+        color: var(--ghost);
+      }
+      .ghost-row:last-child .ghost-clip:first-child .ghost-inner {
+        color: var(--ink);
+      }
+      .ghost-heading.reveal .ghost-inner {
+        opacity: 1;
+        transform: none;
+        transition:
+          transform 700ms cubic-bezier(0.16, 1, 0.3, 1) var(--delay),
+          opacity 350ms ease var(--delay);
+      }
+      .graduate-card {
+        position: relative;
+        z-index: 2;
+        width: 13rem;
+        margin: 2rem auto 0;
+        aspect-ratio: 3/4;
+        overflow: hidden;
+        border-radius: var(--radius-card);
+        background: var(--brand);
+        transform: rotate(6deg);
+      }
+      .graduate-card img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+      .graduate-caption {
+        position: absolute;
+        left: 0.75rem;
+        right: 0.75rem;
+        bottom: 0.75rem;
+        padding: 0.5rem 0.75rem;
+        border-radius: 0.75rem;
+        background: rgba(27, 42, 74, 0.58);
+        color: var(--on-brand);
+        backdrop-filter: blur(12px);
+      }
+      .graduate-caption strong {
+        display: block;
+        font-size: 0.875rem;
+      }
+      .graduate-caption span {
+        font-size: 0.65rem;
+        opacity: 0.8;
+      }
+      .carousel-controls {
+        position: relative;
+        z-index: 3;
+        margin-top: 3rem;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+      .arrow-button {
+        width: 3rem;
+        height: 3rem;
+        border-radius: 50%;
+        display: grid;
+        place-items: center;
+        border: 1px solid var(--hairline);
+        background: transparent;
+        color: var(--ink);
+      }
+      .arrow-button.solid {
+        background: var(--ink);
+        border-color: var(--ink);
+        color: var(--on-brand);
+      }
+      .arrow-button svg {
+        width: 1.25rem;
+      }
+      .arrow-button.prev svg {
+        transform: scaleX(-1);
+      }
+      .carousel-controls .dots {
+        margin: 0;
+      }
+      .carousel-controls .dot span {
+        background: var(--ghost);
+      }
+      .carousel-controls .dot[aria-current="true"] span {
+        background: var(--ink);
+      }
+      .programs {
+        padding: 6rem 1.5rem;
+        background: var(--surface);
+      }
+      .stacked-heading {
+        font-size: 3rem;
+        font-weight: 500;
+        line-height: 0.95;
+        letter-spacing: -0.025em;
+        margin-top: 1rem;
+      }
+      .stacked-heading .line-clip {
+        display: block;
+      }
+      .program-list {
+        list-style: none;
+        padding: 0;
+        margin: 3.5rem 0 0;
+        border-top: 1px solid var(--hairline);
+      }
+      .program-row {
+        display: flex;
+        align-items: center;
+        gap: 1.5rem;
+        padding: 1.75rem 0;
+        border-bottom: 1px solid var(--hairline);
+        text-decoration: none;
+      }
+      .program-index {
+        width: 2.5rem;
+        font-size: 0.875rem;
+        color: var(--ink-soft);
+      }
+      .program-copy {
+        flex: 1;
+      }
+      .program-copy h3 {
+        font-size: 1.5rem;
+        font-weight: 500;
+        letter-spacing: -0.02em;
+      }
+      .program-copy p {
+        font-size: 0.875rem;
+        color: var(--ink-soft);
+        margin-top: 0.35rem;
+      }
+      .row-arrow {
+        width: 2.75rem;
+        height: 2.75rem;
+        border: 1px solid var(--hairline);
+        border-radius: 50%;
+        display: grid;
+        place-items: center;
+      }
+      .row-arrow svg {
+        width: 1.2rem;
+        opacity: 0.55;
+        transition:
+          transform 0.25s ease,
+          opacity 0.25s;
+      }
+      .program-row:hover .row-arrow svg {
+        transform: translateX(0.45rem);
+        opacity: 1;
+      }
+      .facilities {
+        margin-top: -2.5rem;
+        padding: 4rem 1.5rem 5rem;
+        background: var(--background);
+      }
+      .facilities-grid {
+        display: grid;
+        gap: 2.5rem;
+        align-items: end;
+      }
+      .section-icon {
+        width: 4rem;
+        height: 4rem;
+        object-fit: cover;
+        border-radius: var(--radius-card);
+      }
+      .facilities-intro {
+        max-width: 24rem;
+      }
+      .facilities-intro p {
+        max-width: 22rem;
+        margin-top: 1.5rem;
+        font-size: 0.875rem;
+        line-height: 1.7;
+        color: var(--ink-soft);
+      }
+      .photo-pair {
+        display: flex;
+        align-items: flex-end;
+        gap: 1.25rem;
+      }
+      .photo-card {
+        position: relative;
+        flex: 1;
+        aspect-ratio: 3/4;
+        overflow: hidden;
+        border-radius: var(--radius-card);
+        background: var(--surface);
+      }
+      .photo-card:nth-child(2) {
+        margin-bottom: 2rem;
+      }
+      .photo-card img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+      }
+      .photo-card:hover img {
+        transform: scale(1.03);
+      }
+      .photo-caption {
+        position: absolute;
+        left: 0.75rem;
+        right: 0.75rem;
+        bottom: 0.75rem;
+        padding: 0.75rem 1rem;
+        border-radius: 0.75rem;
+        background: rgba(27, 42, 74, 0.65);
+        color: var(--on-brand);
+        backdrop-filter: blur(12px);
+      }
+      .photo-caption strong {
+        display: block;
+        font-size: 0.875rem;
+      }
+      .photo-caption span {
+        display: block;
+        font-size: 0.65rem;
+        line-height: 1.45;
+        opacity: 0.85;
+        margin-top: 0.2rem;
+      }
+      .stats {
+        margin-top: 0.75rem;
+        padding: 5rem 1.5rem;
+        background: var(--brand-deep);
+        color: var(--on-brand);
+      }
+      .stats-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 3rem 2rem;
+        margin-top: 4rem;
+      }
+      .stat {
+        border-top: 1px solid rgba(250, 250, 248, 0.2);
+        padding-top: 1.25rem;
+      }
+      .stat strong {
+        display: block;
+        font-size: 3.75rem;
+        font-weight: 500;
+        letter-spacing: -0.03em;
+      }
+      .stat span {
+        display: block;
+        margin-top: 0.75rem;
+        font-size: 0.875rem;
+        color: rgba(250, 250, 248, 0.65);
+      }
+      .testimonials {
+        padding: 5rem 1.5rem;
+        background: var(--background);
+      }
+      .testimonial-grid {
+        list-style: none;
+        padding: 0;
+        margin: 3.5rem 0 0;
+        display: grid;
+        gap: 1.25rem;
+      }
+      .testimonial {
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        padding: 1.75rem;
+        border-radius: var(--radius-card);
+        background: var(--surface);
+        transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+      }
+      .testimonial:hover {
+        transform: translateY(-0.5rem);
+      }
+      .quote-mark {
+        font-size: 2.25rem;
+        color: var(--brand);
+        line-height: 1;
+      }
+      .testimonial blockquote {
+        font-size: 1.125rem;
+        line-height: 1.6;
+        margin-top: 1rem;
+      }
+      .testimonial footer {
+        margin-top: 1.5rem;
+        padding-top: 1rem;
+        border-top: 1px solid var(--hairline);
+      }
+      .testimonial footer strong {
+        display: block;
+        font-size: 0.9rem;
+      }
+      .testimonial footer span {
+        font-size: 0.75rem;
+        color: var(--ink-soft);
+      }
+      .footer {
+        margin-top: 0.75rem;
+        padding: 3.5rem 1.5rem;
+        background: var(--brand-deep);
+        color: var(--on-brand);
+      }
+      .footer-cta {
+        display: flex;
+        flex-direction: column;
+        gap: 2rem;
+        padding-bottom: 3.5rem;
+        border-bottom: 1px solid rgba(250, 250, 248, 0.15);
+      }
+      .footer-cta .stacked-heading {
+        font-size: 3.75rem;
+      }
+      .pill {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.5rem;
+        width: max-content;
+        padding: 0.875rem 1.75rem;
+        border: 0;
+        border-radius: var(--radius-pill);
+        font-size: 0.875rem;
+        font-weight: 500;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+        background: var(--on-brand);
+        color: var(--brand-deep);
+      }
+      .pill svg {
+        width: 1rem;
+        transition: transform 0.22s;
+      }
+      .pill:hover svg {
+        transform: translateX(0.3rem);
+      }
+      .footer-columns {
+        display: grid;
+        gap: 2.5rem;
+        padding: 3.5rem 0;
+      }
+      .footer-brand {
+        max-width: 22rem;
+      }
+      .footer-brand p {
+        font-size: 0.875rem;
+        line-height: 1.65;
+        color: rgba(250, 250, 248, 0.65);
+        margin-top: 1rem;
+      }
+      .footer-brand address {
+        font-style: normal;
+        font-size: 0.875rem;
+        line-height: 1.9;
+        margin-top: 1.5rem;
+      }
+      .footer-nav h3 {
+        font-size: 0.75rem;
+        font-weight: 500;
+        text-transform: uppercase;
+        letter-spacing: 0.2em;
+        color: rgba(250, 250, 248, 0.5);
+      }
+      .footer-nav ul {
+        list-style: none;
+        padding: 0;
+        margin: 1rem 0 0;
+        display: grid;
+        gap: 0.75rem;
+      }
+      .footer-nav a {
+        font-size: 0.875rem;
+        text-decoration: none;
+        color: rgba(250, 250, 248, 0.8);
+      }
+      .bottom-bar {
+        padding-top: 2rem;
+        border-top: 1px solid rgba(250, 250, 248, 0.15);
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+        font-size: 0.75rem;
+        color: rgba(250, 250, 248, 0.6);
+      }
+      .site-wordmark {
+        font-size: 1rem;
+        font-weight: 500;
+        text-transform: uppercase;
+        letter-spacing: 0.2em;
+      }
+      .founders {
+        position: relative;
+        isolation: isolate;
+        overflow: hidden;
+        margin-top: 0.75rem;
+        padding: 5rem 1.5rem;
+        background: var(--surface);
+      }
+      .founders-ghost {
+        position: absolute;
+        inset: 2rem 1.5rem auto;
+        z-index: -1;
+        color: var(--ghost);
+        font-size: 11vw;
+        font-weight: 500;
+        line-height: 0.85;
+        letter-spacing: -0.03em;
+        text-transform: uppercase;
+        white-space: nowrap;
+      }
+      .founders-grid {
+        display: grid;
+        gap: 3rem;
+        align-items: end;
+        padding-top: 7rem;
+      }
+      .founders-intro h2 {
+        max-width: 9ch;
+        margin-top: 1rem;
+        font-size: 3rem;
+        font-weight: 500;
+        line-height: 0.95;
+        letter-spacing: -0.025em;
+      }
+      .founders-copy {
+        padding: 1.5rem;
+        border-radius: var(--radius-card);
+        background: var(--background);
+      }
+      .founders-copy p {
+        color: var(--ink-soft);
+        font-size: 0.875rem;
+        line-height: 1.75;
+      }
+      .founders-copy p + p {
+        margin-top: 1rem;
+      }
+      .founders-link {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        margin-top: 1.5rem;
+        font-size: 0.75rem;
+        font-weight: 500;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+        text-underline-offset: 0.35rem;
+      }
+      .whatsapp-widget {
+        position: fixed;
+        right: max(1rem, env(safe-area-inset-right));
+        bottom: max(1rem, env(safe-area-inset-bottom));
+        z-index: 60;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.6rem;
+        width: 3rem;
+        min-height: 3rem;
+        padding: 0;
+        justify-content: center;
+        border: 1px solid rgba(27, 42, 74, 0.15);
+        border-radius: var(--radius-pill);
+        background: var(--brand);
+        color: var(--brand-deep);
+        box-shadow: 0 0.75rem 2rem rgba(27, 42, 74, 0.22);
+        font-size: 0.75rem;
+        font-weight: 500;
+        text-decoration: none;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        opacity: 0;
+        transform: translateY(1rem);
+        pointer-events: none;
+        transition:
+          opacity 0.25s ease,
+          transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+      }
+      .whatsapp-widget.show {
+        opacity: 1;
+        transform: none;
+        pointer-events: auto;
+      }
+      .whatsapp-widget.suppressed {
+        opacity: 0;
+        transform: translateY(1rem);
+        pointer-events: none;
+      }
+      .whatsapp-widget svg {
+        width: 1rem;
+        height: 1rem;
+      }
+      .whatsapp-widget span {
+        display: none;
+      }
+      @media (hover: hover) and (min-width: 768px) {
+        .whatsapp-widget:hover,
+        .whatsapp-widget:focus-visible {
+          width: auto;
+          padding: 0.75rem 1rem;
+        }
+        .whatsapp-widget:hover span,
+        .whatsapp-widget:focus-visible span {
+          display: inline;
+        }
+      }
+      .menu,
+      .modal {
+        position: fixed;
+        inset: 0;
+        pointer-events: none;
+        opacity: 0;
+        transition: opacity 0.35s ease;
+      }
+      .menu {
+        z-index: 70;
+        background: var(--brand-deep);
+        color: var(--on-brand);
+        transform: translateY(-1.5rem);
+        transition:
+          opacity 0.35s ease,
+          transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+      }
+      .menu.open,
+      .modal.open {
+        pointer-events: auto;
+        opacity: 1;
+        transform: none;
+      }
+      .menu-inner {
+        height: 100%;
+        padding: 2rem 1.5rem;
+        display: flex;
+        flex-direction: column;
+      }
+      .menu-top {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+      .close-button {
+        width: 2.5rem;
+        height: 2.5rem;
+        border: 0;
+        border-radius: 50%;
+        background: rgba(250, 250, 248, 0.15);
+        color: inherit;
+        font-size: 1.4rem;
+      }
+      .menu-links {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        gap: 0.5rem;
+      }
+      .menu-links a {
+        font-size: 3rem;
+        font-weight: 500;
+        line-height: 1;
+        text-decoration: none;
+      }
+      .menu-links a:hover {
+        color: var(--brand-light);
+      }
+      .menu-bottom {
+        padding-top: 2rem;
+        border-top: 1px solid rgba(250, 250, 248, 0.15);
+        display: flex;
+        flex-wrap: wrap;
+        gap: 1rem;
+      }
+      .modal {
+        z-index: 90;
+        display: flex;
+        align-items: flex-end;
+        justify-content: center;
+        padding: 0.75rem;
+      }
+      .modal-backdrop {
+        position: absolute;
+        inset: 0;
+        background: rgba(27, 42, 74, 0.55);
+        backdrop-filter: blur(10px);
+      }
+      .modal-panel {
+        position: relative;
+        width: 100%;
+        max-height: 92svh;
+        overflow: auto;
+        max-width: 32rem;
+        padding: 1.5rem;
+        border-radius: var(--radius-card-lg);
+        background: var(--surface-card);
+        color: var(--ink);
+        transform: translateY(1.75rem) scale(0.96);
+        transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+      }
+      .modal.open .modal-panel {
+        transform: none;
+      }
+      .modal-head {
+        display: flex;
+        justify-content: space-between;
+        gap: 1rem;
+      }
+      .modal h2 {
+        font-size: 3rem;
+        font-weight: 500;
+        line-height: 0.95;
+        margin-top: 0.75rem;
+      }
+      .form {
+        display: grid;
+        gap: 1rem;
+        margin-top: 1.75rem;
+      }
+      .field {
+        display: grid;
+        gap: 0.45rem;
+      }
+      .field label {
+        font-size: 0.75rem;
+        font-weight: 500;
+        text-transform: uppercase;
+        letter-spacing: 0.16em;
+        color: var(--ink-soft);
+      }
+      .field input,
+      .field textarea,
+      .field select {
+        width: 100%;
+        padding: 0.75rem 1rem;
+        border: 1px solid var(--hairline);
+        border-radius: 0.75rem;
+        background: var(--background);
+        font-size: 0.875rem;
+      }
+      .submit {
+        border: 0;
+        border-radius: var(--radius-pill);
+        padding: 0.875rem 1.75rem;
+        background: var(--ink);
+        color: var(--on-brand);
+        font-size: 0.875rem;
+        font-weight: 500;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+      }
+      .success {
+        padding: 1.5rem;
+        border-radius: var(--radius-card);
+        background: var(--surface);
+        text-align: center;
+      }
+      .success h3 {
+        font-size: 1.125rem;
+        margin-top: 0.75rem;
+      }
+      .success p {
+        font-size: 0.875rem;
+        line-height: 1.6;
+        color: var(--ink-soft);
+        margin: 0.5rem 0 1rem;
+      }
+      .inview {
+        opacity: 0;
+        transform: translateY(1.75rem);
+      }
+      .inview.visible {
+        opacity: 1;
+        transform: none;
+        transition:
+          opacity 0.7s ease var(--delay, 0ms),
+          transform 0.8s cubic-bezier(0.16, 1, 0.3, 1) var(--delay, 0ms);
+      }
+      @media (min-width: 640px) {
+        .page {
+          padding: 0.75rem;
+        }
+        .hero {
+          height: calc(100svh - 1.5rem);
+        }
+        .header {
+          padding: 2rem 2.5rem 0;
+        }
+        .header-action {
+          display: block;
+        }
+        .hero-title {
+          padding-inline: 2.5rem;
+        }
+        .hero-bottom {
+          padding: 0 2.5rem 2.5rem;
+          flex-direction: row;
+          align-items: flex-end;
+          justify-content: space-between;
+        }
+        .proof-card {
+          max-width: 15rem;
+        }
+        .trust {
+          padding: 5rem 2.5rem;
+        }
+        .trust-top {
+          flex-direction: row;
+          justify-content: space-between;
+        }
+        .percent-badge {
+          width: 8rem;
+          height: 8rem;
+        }
+        .graduate-card {
+          width: 16rem;
+        }
+        .programs,
+        .stats {
+          padding-left: 2.5rem;
+          padding-right: 2.5rem;
+        }
+        .program-copy h3 {
+          font-size: 1.875rem;
+        }
+        .facilities {
+          padding-left: 2.5rem;
+          padding-right: 2.5rem;
+        }
+        .testimonials {
+          padding: 6rem 2.5rem;
+        }
+        .footer {
+          padding: 4rem 2.5rem;
+        }
+        .footer-cta {
+          flex-direction: row;
+          align-items: flex-end;
+          justify-content: space-between;
+        }
+        .modal {
+          align-items: center;
+          padding: 1.5rem;
+        }
+        .modal-panel {
+          padding: 2rem;
+        }
+        .bottom-bar {
+          flex-direction: row;
+          justify-content: space-between;
+          align-items: center;
+        }
+        .founders {
+          padding: 6rem 2.5rem;
+        }
+      }
+      @media (min-width: 768px) {
+        .mini-slider {
+          display: block;
+        }
+        .facilities-grid {
+          grid-template-columns: 1fr 1fr;
+        }
+        .testimonial-grid {
+          grid-template-columns: repeat(3, 1fr);
+        }
+        .footer-columns {
+          grid-template-columns: 1.4fr 1fr 1fr 1fr;
+        }
+        .graduate-card {
+          position: absolute;
+          left: 50%;
+          top: 50%;
+          margin: 0;
+          transform: translate(-50%, -43%) rotate(6deg);
+        }
+        .carousel-controls {
+          margin-top: 6rem;
+        }
+        .founders-grid {
+          grid-template-columns: 1fr 1fr;
+          padding-top: 9rem;
+        }
+      }
+      @media (min-width: 1024px) {
+        .nav-left {
+          display: flex;
+        }
+        .header > .header-brand {
+          position: absolute;
+          left: 50%;
+          transform: translateX(-50%);
+        }
+        .stats-grid {
+          grid-template-columns: repeat(4, 1fr);
+        }
+        .footer-columns {
+          grid-template-columns: 1.4fr 1fr 1fr 1fr;
+        }
+      }
+      @media (max-width: 1920px) {
+        html {
+          font-size: 0.833333vw;
+        }
+      }
+      @media (max-width: 1440px) {
+        html {
+          font-size: 1.111111vw;
+        }
+      }
+      @media (max-width: 1024px) {
+        html {
+          font-size: 1.5625vw;
+        }
+      }
+      @media (max-width: 640px) {
+        html {
+          font-size: 4.444444vw;
+        }
+        .program-row {
+          gap: 0.75rem;
+        }
+        .program-index {
+          width: 1.5rem;
+        }
+        .row-arrow {
+          width: 2.5rem;
+          height: 2.5rem;
+          flex: none;
+        }
+        .founders-ghost {
+          font-size: 12vw;
+        }
+        .hero-tagline {
+          font-size: 1.75rem;
+        }
+        .whatsapp-widget {
+          width: 3rem;
+          padding: 0;
+          justify-content: center;
+        }
+        .whatsapp-widget span {
+          display: none;
+        }
+      }
+      .brand-symbol,
+      .brand-logo {
+        display: none;
+      }
+      .hero-title {
+        font-size: 10.5vw;
+      }
+      @media (prefers-reduced-motion: reduce) {
+        *,
+        *::before,
+        *::after {
+          scroll-behavior: auto !important;
+          animation-duration: 0.001ms !important;
+          transition-duration: 0.001ms !important;
+        }
+        .word-inner,
+        .line-inner,
+        .ghost-inner,
+        .inview {
+          opacity: 1 !important;
+          transform: none !important;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="loader" id="loader" aria-hidden="true">
+      <div class="loader-inner">
+        <div class="loader-brand">
+          <span class="site-wordmark">EduRecruitment</span>
+        </div>
+        <div class="loader-track"><div class="loader-fill"></div></div>
+      </div>
+    </div>
+    <!-- FOUNDATION LOCK v1: preserve direct-child order and data-foundation-section values. -->
+    <main class="page" data-foundation-version="1">
+      <section
+        class="hero card-section"
+        id="home"
+        aria-labelledby="hero-title"
+        data-foundation-section="hero"
+      >
+        <div class="hero-media">
+          <div class="hero-media-inner" id="hero-media">
+            <img
+              src="public/images/hero-graduation.jpg"
+              alt="Graduates celebrating outside Guildhall Art Gallery"
+              fetchpriority="high"
+            />
+          </div>
+        </div>
+        <div class="hero-shade"></div>
+        <header class="header">
+          <nav class="nav-left" aria-label="Primary">
+            <a href="#support">Support &amp; guidance</a
+            ><a href="#stories">Graduate stories</a
+            ><a href="#about-preview">About us</a>
+          </nav>
+          <a class="header-brand" href="#home" aria-label="EduRecruitment home"
+            ><span class="site-wordmark">EduRecruitment</span></a
+          >
+          <div class="header-right">
+            <button class="header-action open-contact" type="button">
+              Start a conversation</button
+            ><button
+              class="burger"
+              id="menu-open"
+              type="button"
+              aria-label="Open menu"
+              aria-expanded="false"
+            >
+              <span></span><span></span>
+            </button>
+          </div>
+        </header>
+        <h1 class="hero-title" id="hero-title" data-words="Students First"></h1>
+        <div class="hero-bottom">
+          <p
+            class="hero-tagline"
+            data-lines="Honest guidance,|personal support."
+          ></p>
+          <div class="hero-cluster">
+            <div class="mini-slider inview" id="mini-slider">
+              <article class="glass-card mini-card">
+                <img
+                  id="mini-image"
+                  src="public/images/5289.jpg"
+                  alt="Graduate at a graduation ceremony"
+                />
+                <div class="mini-copy">
+                  <span class="mini-kicker" id="mini-kicker">Course choice</span
+                  ><span class="mini-title" id="mini-title"
+                    >Options shaped around your goals</span
+                  ><a class="mini-link" href="#support" id="mini-link"
+                    >See the support →</a
+                  >
+                </div>
+              </article>
+              <div
+                class="dots"
+                id="mini-dots"
+                aria-label="Support highlights"
+              ></div>
+            </div>
+            <article class="glass-card proof-card inview">
+              <div class="proof-card-copy">
+                <strong>1:1</strong>
+                <div class="avatar-row" aria-hidden="true">
+                  <span
+                    style="
+                      background-image: url(&quot;public/images/Andrea.jpg&quot;);
+                    "
+                  ></span
+                  ><span
+                    style="
+                      background-image: url(&quot;public/images/Razvan Rosca.png&quot;);
+                    "
+                  ></span
+                  ><span
+                    style="
+                      background-image: url(&quot;public/images/5291.jpg&quot;);
+                    "
+                  ></span
+                  ><span
+                    style="
+                      background-image: url(&quot;public/images/5292.jpg&quot;);
+                    "
+                  ></span>
+                </div>
+                <small>You’re never just another application.</small>
+              </div>
+              <img
+                src="public/images/Andrea.jpg"
+                alt="Andrea, an EduRecruitment graduate"
+              />
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section
+        class="trust"
+        id="stories"
+        aria-labelledby="trust-title"
+        data-foundation-section="graduate-stories"
+      >
+        <div class="trust-top">
+          <div class="percent-badge inview">
+            <strong>2018</strong
+            ><span>Valentina and Carlotta’s journey began</span>
+          </div>
+          <article class="trust-note inview">
+            <span class="index-chip">#01</span>
+            <div>
+              <h2>Built to put students first</h2>
+              <p>
+                Every student deserves honest guidance, personal support, and
+                someone who genuinely believes in their potential.
+              </p>
+            </div>
+          </article>
+        </div>
+        <h2 class="ghost-heading" id="trust-title"></h2>
+        <figure class="graduate-card inview">
+          <img
+            id="story-image"
+            src="public/images/Andrea.jpg"
+            alt="Andrea in graduation gown outside a university building"
+          />
+          <figcaption class="graduate-caption">
+            <strong id="story-name">Andrea</strong
+            ><span id="story-role">EduRecruitment graduate</span>
+          </figcaption>
+        </figure>
+        <div class="carousel-controls">
+          <button
+            class="arrow-button prev"
+            id="story-prev"
+            aria-label="Previous graduate story"
+          >
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.8"
+            >
+              <path d="M5 12h14M13 6l6 6-6 6" />
+            </svg>
+          </button>
+          <div class="dots" id="story-dots" aria-label="Graduate stories"></div>
+          <button
+            class="arrow-button solid"
+            id="story-next"
+            aria-label="Next graduate story"
+          >
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.8"
+            >
+              <path d="M5 12h14M13 6l6 6-6 6" />
+            </svg>
+          </button>
+        </div>
+      </section>
+
+      <section
+        class="programs"
+        id="support"
+        aria-labelledby="support-title"
+        data-foundation-section="support"
+      >
+        <span class="eyebrow">How we can help</span>
+        <h2
+          class="stacked-heading inview"
+          id="support-title"
+          data-lines="One step|at a time"
+        ></h2>
+        <ul class="program-list">
+          <li>
+            <a class="program-row inview" href="#contact"
+              ><span class="program-index">01</span>
+              <div class="program-copy">
+                <h3>Course &amp; university choice</h3>
+                <p>
+                  Compare options against your goals, circumstances and next
+                  career step.
+                </p>
+              </div>
+              <span class="row-arrow"
+                ><svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="1.8"
+                >
+                  <path d="M5 12h14M13 6l6 6-6 6" /></svg></span
+            ></a>
+          </li>
+          <li>
+            <a class="program-row inview" href="#contact"
+              ><span class="program-index">02</span>
+              <div class="program-copy">
+                <h3>Preparing an application</h3>
+                <p>
+                  Understand what is needed, what can wait and how the pieces
+                  fit together.
+                </p>
+              </div>
+              <span class="row-arrow"
+                ><svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="1.8"
+                >
+                  <path d="M5 12h14M13 6l6 6-6 6" /></svg></span
+            ></a>
+          </li>
+          <li>
+            <a class="program-row inview" href="#contact"
+              ><span class="program-index">03</span>
+              <div class="program-copy">
+                <h3>Personal statement</h3>
+                <p>
+                  Shape your experience and motivation into a clear, accurate
+                  account.
+                </p>
+              </div>
+              <span class="row-arrow"
+                ><svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="1.8"
+                >
+                  <path d="M5 12h14M13 6l6 6-6 6" /></svg></span
+            ></a>
+          </li>
+          <li>
+            <a class="program-row inview" href="#contact"
+              ><span class="program-index">04</span>
+              <div class="program-copy">
+                <h3>Student Finance</h3>
+                <p>
+                  Work through the process with the relevant facts in the right
+                  order.
+                </p>
+              </div>
+              <span class="row-arrow"
+                ><svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="1.8"
+                >
+                  <path d="M5 12h14M13 6l6 6-6 6" /></svg></span
+            ></a>
+          </li>
+        </ul>
+      </section>
+
+      <section
+        class="facilities card-section"
+        id="starting"
+        data-foundation-section="starting-points"
+      >
+        <div class="facilities-grid">
+          <div class="facilities-intro">
+            <img
+              class="section-icon inview"
+              src="public/images/PHOTO-2026-08-02-13-08-18.jpg"
+              alt="Graduate celebrating at a graduation ceremony"
+              loading="lazy"
+            />
+            <h2
+              class="stacked-heading inview"
+              data-lines="Start from|where you|are now"
+            ></h2>
+            <p class="inview">
+              Whether you are applying for the first time, returning after years
+              away or changing career, the conversation begins with your real
+              circumstances.
+            </p>
+          </div>
+          <div class="photo-pair">
+            <figure class="photo-card inview">
+              <img
+                src="public/images/Razvan Rosca.png"
+                alt="Razvan Rosca, an EduRecruitment graduate"
+                loading="lazy"
+              />
+              <figcaption class="photo-caption">
+                <strong>Returning to education</strong
+                ><span
+                  >Plan around work, family, previous study and time away.</span
+                >
+              </figcaption>
+            </figure>
+            <figure class="photo-card inview">
+              <img
+                src="public/images/5291.jpg"
+                alt="Chiara Marini at a graduation ceremony"
+                loading="lazy"
+              />
+              <figcaption class="photo-caption">
+                <strong>Changing career</strong
+                ><span
+                  >Connect a new course to the experience and goals you already
+                  have.</span
+                >
+              </figcaption>
+            </figure>
+          </div>
+        </div>
+      </section>
+
+      <section
+        class="founders card-section"
+        id="about-preview"
+        aria-labelledby="founders-title"
+        data-foundation-section="founder-story"
+      >
+        <p class="founders-ghost" aria-hidden="true">Our journey</p>
+        <div class="founders-grid">
+          <div class="founders-intro inview">
+            <span class="eyebrow">Valentina &amp; Carlotta</span>
+            <h2 id="founders-title">A company built to put students first.</h2>
+          </div>
+          <div class="founders-copy inview">
+            <p>
+              Our journey began in 2018, when Valentina and Carlotta met at
+              university. They were both students with big dreams, ambitious
+              goals, and a shared passion for helping others succeed. As their
+              friendship grew, so did their vision.
+            </p>
+            <p>
+              They worked together throughout their careers in higher education
+              and student recruitment, gaining valuable experience while always
+              holding onto one dream: to build a company that puts students
+              first. That dream became VM Education Recruitment.
+            </p>
+            <a class="founders-link" href="/about"
+              >Read our full story <span aria-hidden="true">→</span></a
+            >
+          </div>
+        </div>
+      </section>
+
+      <section
+        class="stats card-section"
+        aria-labelledby="stats-title"
+        data-foundation-section="facts"
+      >
+        <span class="eyebrow light">The facts</span>
+        <h2
+          class="stacked-heading inview"
+          id="stats-title"
+          data-lines="Clear support,|honest boundaries"
+        ></h2>
+        <dl class="stats-grid">
+          <div class="stat inview">
+            <dt class="sr-only">Support routes</dt>
+            <dd><strong>6</strong><span>Ways we can help</span></dd>
+          </div>
+          <div class="stat inview">
+            <dt class="sr-only">Personal guidance</dt>
+            <dd>
+              <strong>1:1</strong
+              ><span>Personal guidance around your circumstances</span>
+            </dd>
+          </div>
+          <div class="stat inview">
+            <dt class="sr-only">Journey began</dt>
+            <dd><strong>2018</strong><span>Our journey began</span></dd>
+          </div>
+          <div class="stat inview">
+            <dt class="sr-only">Contact routes</dt>
+            <dd><strong>3</strong><span>Ways to start a conversation</span></dd>
+          </div>
+        </dl>
+      </section>
+
+      <section
+        class="testimonials"
+        id="testimonials"
+        aria-labelledby="testimonials-title"
+        data-foundation-section="testimonials"
+      >
+        <span class="eyebrow">Graduate accounts</span>
+        <h2
+          class="stacked-heading inview"
+          id="testimonials-title"
+          data-lines="In their own|words"
+        ></h2>
+        <ul class="testimonial-grid">
+          <li>
+            <figure class="testimonial inview">
+              <div>
+                <span class="quote-mark">“</span>
+                <blockquote>
+                  I wasn’t sure if I was ready to apply for university, but
+                  Valentina explained everything step by step and made the whole
+                  process much less stressful. She helped me with my
+                  application, CV, and personal statement, and was always
+                  available whenever I had questions. I really appreciated her
+                  patience and honesty throughout the entire process.
+                </blockquote>
+              </div>
+              <footer>
+                <strong>Andrea</strong><span>EduRecruitment graduate</span>
+              </footer>
+            </figure>
+          </li>
+          <li>
+            <figure class="testimonial inview">
+              <div>
+                <span class="quote-mark">“</span>
+                <blockquote>
+                  Excellent service from start to finish. Communication was
+                  always quick, and I was kept updated throughout every stage of
+                  my application. I never felt rushed or pressured, and
+                  everything was explained clearly. I would definitely recommend
+                  VM Education Recruitment to anyone looking for support with
+                  university applications.
+                </blockquote>
+              </div>
+              <footer>
+                <strong>Razvan Rosca</strong
+                ><span>EduRecruitment graduate</span>
+              </footer>
+            </figure>
+          </li>
+          <li>
+            <figure class="testimonial inview">
+              <div>
+                <span class="quote-mark">“</span>
+                <blockquote>
+                  Carlotta was incredibly helpful and supportive throughout my
+                  university registration process. She guided me step by step,
+                  answered all my questions, and made sure everything was
+                  completed smoothly. Her kindness and professionalism made a
+                  big difference, and I truly appreciate all her assistance.
+                </blockquote>
+              </div>
+              <footer>
+                <strong>Chiara Marini</strong
+                ><span>EduRecruitment graduate</span>
+              </footer>
+            </figure>
+          </li>
+        </ul>
+      </section>
+
+      <footer
+        class="footer card-section"
+        id="contact"
+        data-foundation-section="contact-footer"
+      >
+        <div class="footer-cta">
+          <div>
+            <span class="eyebrow light">Get started</span>
+            <p
+              class="stacked-heading inview"
+              data-lines="Ready to|talk it through?"
+            ></p>
+          </div>
+          <button class="pill open-contact inview" type="button">
+            Start a conversation
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.8"
+            >
+              <path d="M5 12h14M13 6l6 6-6 6" />
+            </svg>
+          </button>
+        </div>
+        <div class="footer-columns">
+          <div class="footer-brand">
+            <a class="header-brand" href="#home"
+              ><span class="site-wordmark">EduRecruitment</span></a
+            >
+            <p>
+              Our mission is simple: to make higher education more accessible by
+              providing trustworthy advice, dedicated support, and a service
+              that always puts students first.
+            </p>
+            <address>
+              <a href="mailto:hello@edurecruitment.co.uk"
+                >hello@edurecruitment.co.uk</a
+              ><br /><a href="tel:+447367911861">+44 7367 911861</a><br /><span
+                >United Kingdom</span
+              >
+            </address>
+          </div>
+          <nav class="footer-nav" aria-label="Support">
+            <h3>Support</h3>
+            <ul>
+              <li><a href="#support">Course choice</a></li>
+              <li><a href="#support">Applications</a></li>
+              <li><a href="#support">Personal statements</a></li>
+              <li><a href="#support">Student Finance</a></li>
+            </ul>
+          </nav>
+          <nav class="footer-nav" aria-label="Starting points">
+            <h3>Starting points</h3>
+            <ul>
+              <li><a href="#starting">First application</a></li>
+              <li><a href="#starting">Returning to education</a></li>
+              <li><a href="#starting">Changing career</a></li>
+              <li><a href="#stories">Graduate stories</a></li>
+            </ul>
+          </nav>
+          <nav class="footer-nav" aria-label="Company">
+            <h3>Company</h3>
+            <ul>
+              <li><a href="/about">About</a></li>
+              <li><a href="#stories">Results</a></li>
+              <li><a href="mailto:hello@edurecruitment.co.uk">Email</a></li>
+              <li>
+                <a
+                  href="https://wa.me/447367911861"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  >WhatsApp</a
+                >
+              </li>
+            </ul>
+          </nav>
+        </div>
+        <div class="bottom-bar">
+          <span>© 2026 VM Education Recruitment. All rights reserved.</span
+          ><span>Your future. Our guidance.</span>
+        </div>
+      </footer>
+    </main>
+
+    <div
+      class="menu"
+      id="menu"
+      role="dialog"
+      aria-modal="true"
+      aria-label="Navigation menu"
+      aria-hidden="true"
+    >
+      <div class="menu-inner">
+        <div class="menu-top">
+          <span class="header-brand"
+            ><span class="site-wordmark">EduRecruitment</span></span
+          ><button class="close-button" id="menu-close" aria-label="Close menu">
+            ×
+          </button>
+        </div>
+        <nav class="menu-links">
+          <a href="#support">Support</a><a href="#starting">Starting points</a
+          ><a href="#stories">Graduate stories</a
+          ><a href="#about-preview">About us</a><a href="#contact">Contact</a>
+        </nav>
+        <div class="menu-bottom">
+          <button class="pill open-contact" type="button">
+            Start a conversation</button
+          ><a href="mailto:hello@edurecruitment.co.uk">Email</a
+          ><a href="tel:+447367911861">Phone</a>
+        </div>
+      </div>
+    </div>
+
+    <a
+      class="whatsapp-widget"
+      id="whatsapp-widget"
+      href="https://wa.me/447367911861"
+      target="_blank"
+      rel="noopener noreferrer"
+      aria-label="Start a conversation with EduRecruitment on WhatsApp (opens in a new tab)"
+    >
+      <svg
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="1.8"
+        aria-hidden="true"
+      >
+        <path d="M7 18.5 3.5 20l1.3-3.8A8.5 8.5 0 1 1 7 18.5Z" />
+        <path d="M8.2 8.5c.7 2.8 2.5 4.6 5.3 5.3" />
+      </svg>
+      <span>WhatsApp</span>
+    </a>
+
+    <div class="modal" id="contact-modal" aria-hidden="true">
+      <div class="modal-backdrop" data-close-modal></div>
+      <section
+        class="modal-panel"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="modal-title"
+      >
+        <div class="modal-head">
+          <div>
+            <span class="eyebrow">Start a conversation</span>
+            <h2 id="modal-title">Tell us what<br />you’re working on</h2>
+          </div>
+          <button
+            class="close-button"
+            id="modal-close"
+            aria-label="Close contact dialog"
+          >
+            ×
+          </button>
+        </div>
+        <form class="form" id="contact-form">
+          <div class="field">
+            <label for="topic">What are you working on?</label
+            ><select id="topic" name="topic">
+              <option>Course &amp; university choice</option>
+              <option>Preparing an application</option>
+              <option>Personal statement</option>
+              <option>Student Finance</option>
+              <option>Interview preparation</option>
+              <option>Returning or changing career</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="intake">When are you aiming to start? (optional)</label
+            ><select id="intake" name="intake">
+              <option value="">Not decided yet</option>
+              <option>September 2026</option>
+              <option>January 2027</option>
+              <option>Later</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="note">Anything useful to add? (optional)</label
+            ><textarea
+              id="note"
+              name="note"
+              rows="3"
+              maxlength="280"
+              placeholder="Add any context you would like us to know."
+            ></textarea>
+          </div>
+          <button class="submit" type="submit">Continue on WhatsApp</button
+          ><a href="mailto:hello@edurecruitment.co.uk"
+            >Prefer email? hello@edurecruitment.co.uk</a
+          >
+        </form>
+        <div class="success" id="contact-success" hidden>
+          <span class="brand-symbol" style="margin: auto">✓</span>
+          <h3>Your message is ready</h3>
+          <p id="success-copy"></p>
+          <a
+            class="pill"
+            id="whatsapp-ready"
+            target="_blank"
+            rel="noopener noreferrer"
+            >Open WhatsApp</a
+          >
+        </div>
+      </section>
+    </div>
+
+    <script type="module">
+      import Lenis from "lenis"
+      const reduced = matchMedia("(prefers-reduced-motion: reduce)").matches
+      const lenis = new Lenis({ smoothWheel: true })
+      const whatsappWidget = document.querySelector("#whatsapp-widget")
+      let whatsappSuppressed = false
+      let locked = true
+      lenis.stop()
+      window.scrollTo(0, 0)
+      function raf(t) {
+        lenis.raf(t)
+        parallax()
+        whatsappWidget.classList.toggle(
+          "show",
+          scrollY > innerHeight * 0.65 && !whatsappSuppressed
+        )
+        requestAnimationFrame(raf)
+      }
+      requestAnimationFrame(raf)
+      const FONT_BASE = 16,
+        BASE_W = 1920,
+        COEF = 0.6666
+      function scaleRoot() {
+        const reduction = ((BASE_W - innerWidth) / BASE_W) * 100 * COEF
+        const size = FONT_BASE - (FONT_BASE * reduction) / 100
+        if (size > FONT_BASE)
+          document.documentElement.style.fontSize = size + "px"
+        else document.documentElement.style.removeProperty("font-size")
+      }
+      scaleRoot()
+      addEventListener("resize", scaleRoot)
+      document.querySelectorAll("[data-words]").forEach(
+        (el) =>
+          (el.innerHTML = el.dataset.words
+            .split(" ")
+            .map(
+              (word, i) =>
+                `<span class="word-clip"><span class="word-inner" style="--delay:${i * 140}ms">${word}</span></span> `
+            )
+            .join(""))
+      )
+      document.querySelectorAll("[data-lines]").forEach(
+        (el) =>
+          (el.innerHTML = el.dataset.lines
+            .split("|")
+            .map(
+              (line, i) =>
+                `<span class="line-clip"><span class="line-inner" style="--delay:${i * 120}ms">${line}</span></span>`
+            )
+            .join(""))
+      )
+      const loader = document.querySelector("#loader")
+      let exited = false
+      function exitLoader() {
+        if (exited) return
+        exited = true
+        document.documentElement.classList.add("ready")
+        loader.classList.add("exit")
+        locked = false
+        lenis.start()
+        setTimeout(() => loader.remove(), reduced ? 0 : 850)
+      }
+      const min = reduced ? 200 : 1400
+      if (document.readyState === "complete") setTimeout(exitLoader, min)
+      else
+        addEventListener("load", () => setTimeout(exitLoader, min), {
+          once: true,
+        })
+      setTimeout(exitLoader, reduced ? 300 : 2600)
+      function parallax() {
+        const hero = document.querySelector(".hero"),
+          rect = hero.getBoundingClientRect(),
+          progress = Math.max(
+            0,
+            Math.min(1, (innerHeight - rect.top) / (innerHeight + rect.height))
+          )
+        document.querySelector("#hero-media").style.transform =
+          `translateY(${progress * 12}%)`
+        const trust = document.querySelector(".trust"),
+          tr = trust.getBoundingClientRect(),
+          p = Math.max(
+            0,
+            Math.min(1, (innerHeight - tr.top) / (innerHeight + tr.height))
+          )
+        document.querySelectorAll(".ghost-inner").forEach((el, i) => {
+          const ranges = [
+            [-3, 3],
+            [3, -3],
+            [-2, 4],
+            [4, -3],
+          ][i]
+          if (ranges)
+            el.style.translate = `${ranges[0] + (ranges[1] - ranges[0]) * p}% 0`
+        })
+      }
+      const observer = new IntersectionObserver(
+        (entries) =>
+          entries.forEach((e) => {
+            if (e.isIntersecting) {
+              e.target.classList.add("visible")
+              observer.unobserve(e.target)
+            }
+          }),
+        { threshold: 0.12 }
+      )
+      document.querySelectorAll(".inview").forEach((el, i) => {
+        el.style.setProperty("--delay", `${Math.min((i % 4) * 90, 270)}ms`)
+        observer.observe(el)
+      })
+      const whatsappBlockers = new Set()
+      const whatsappObserver = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) whatsappBlockers.add(entry.target)
+            else whatsappBlockers.delete(entry.target)
+          })
+          whatsappSuppressed = whatsappBlockers.size > 0
+          whatsappWidget.classList.toggle("suppressed", whatsappSuppressed)
+        },
+        { threshold: 0.12 }
+      )
+      ;["#about-preview", "#contact"].forEach((selector) =>
+        whatsappObserver.observe(document.querySelector(selector))
+      )
+      const mini = [
+        {
+          image: "public/images/5289.jpg",
+          kicker: "Course choice",
+          title: "Options shaped around your goals",
+          cta: "See the support →",
+        },
+        {
+          image: "public/images/5292.jpg",
+          kicker: "Application guidance",
+          title: "Every step explained clearly",
+          cta: "See how we help →",
+        },
+        {
+          image: "public/images/5291.jpg",
+          kicker: "Student Finance",
+          title: "Understand what comes next",
+          cta: "Talk it through →",
+        },
+      ]
+      let miniIndex = 0
+      const miniDots = document.querySelector("#mini-dots")
+      mini.forEach((_, i) => {
+        const b = document.createElement("button")
+        b.className = "dot"
+        b.innerHTML = "<span></span>"
+        b.ariaLabel = `Show highlight ${i + 1}`
+        b.onclick = () => setMini(i)
+        miniDots.append(b)
+      })
+      function setMini(i) {
+        miniIndex = i
+        const m = mini[i],
+          card = document.querySelector(".mini-card")
+        card.style.opacity = 0
+        card.style.transform = "translateY(1rem) scale(.96)"
+        setTimeout(() => {
+          document.querySelector("#mini-image").src = m.image
+          document.querySelector("#mini-kicker").textContent = m.kicker
+          document.querySelector("#mini-title").textContent = m.title
+          document.querySelector("#mini-link").textContent = m.cta
+          card.style.opacity = 1
+          card.style.transform = "none"
+        }, 180)
+        ;[...miniDots.children].forEach((d, n) =>
+          d.setAttribute("aria-current", n === i ? "true" : "false")
+        )
+      }
+      setMini(0)
+      setInterval(() => {
+        if (!document.hidden && !reduced) setMini((miniIndex + 1) % mini.length)
+      }, 3800)
+      const stories = [
+        {
+          words: ["Honest", "Advice", "Personal", "Support"],
+          image: "public/images/Andrea.jpg",
+          name: "Andrea",
+          alt: "Andrea in graduation gown outside a university building",
+        },
+        {
+          words: ["Every", "Step", "Clearly", "Explained"],
+          image: "public/images/Razvan Rosca.png",
+          name: "Razvan Rosca",
+          alt: "Razvan Rosca, an EduRecruitment graduate",
+        },
+        {
+          words: ["Students", "Always", "Come", "First"],
+          image: "public/images/5291.jpg",
+          name: "Chiara Marini",
+          alt: "Chiara Marini at a graduation ceremony",
+        },
+      ]
+      let storyIndex = 0
+      const storyDots = document.querySelector("#story-dots")
+      stories.forEach((_, i) => {
+        const b = document.createElement("button")
+        b.className = "dot"
+        b.innerHTML = "<span></span>"
+        b.ariaLabel = `Show graduate ${i + 1}`
+        b.onclick = () => setStory(i)
+        storyDots.append(b)
+      })
+      function setStory(i) {
+        storyIndex = (i + stories.length) % stories.length
+        const s = stories[storyIndex],
+          heading = document.querySelector("#trust-title")
+        heading.classList.remove("reveal")
+        heading.innerHTML = `<span class="ghost-row"><span class="ghost-clip"><span class="ghost-inner" style="--delay:0ms">${s.words[0]}</span></span><span class="ghost-clip"><span class="ghost-inner" style="--delay:80ms">${s.words[1]}</span></span></span><span class="ghost-row"><span class="ghost-clip"><span class="ghost-inner" style="--delay:160ms">${s.words[2]}</span></span><span class="ghost-clip"><span class="ghost-inner" style="--delay:240ms">${s.words[3]}</span></span></span>`
+        requestAnimationFrame(() => heading.classList.add("reveal"))
+        const img = document.querySelector("#story-image")
+        img.style.opacity = 0
+        setTimeout(() => {
+          img.src = s.image
+          img.alt = s.alt
+          document.querySelector("#story-name").textContent = s.name
+          img.style.opacity = 1
+        }, 180)
+        ;[...storyDots.children].forEach((d, n) =>
+          d.setAttribute("aria-current", n === storyIndex ? "true" : "false")
+        )
+      }
+      document.querySelector("#story-prev").onclick = () =>
+        setStory(storyIndex - 1)
+      document.querySelector("#story-next").onclick = () =>
+        setStory(storyIndex + 1)
+      setStory(0)
+      let priorFocus = null
+      const menu = document.querySelector("#menu"),
+        menuOpen = document.querySelector("#menu-open")
+      function lock() {
+        locked = true
+        lenis.stop()
+        document.documentElement.classList.add("locked")
+      }
+      function unlock() {
+        locked = false
+        lenis.start()
+        document.documentElement.classList.remove("locked")
+      }
+      function openMenu() {
+        priorFocus = document.activeElement
+        menu.classList.add("open")
+        menu.setAttribute("aria-hidden", "false")
+        menuOpen.setAttribute("aria-expanded", "true")
+        lock()
+        setTimeout(() => document.querySelector("#menu-close").focus(), 80)
+      }
+      function closeMenu() {
+        menu.classList.remove("open")
+        menu.setAttribute("aria-hidden", "true")
+        menuOpen.setAttribute("aria-expanded", "false")
+        unlock()
+        priorFocus?.focus()
+      }
+      menuOpen.onclick = openMenu
+      document.querySelector("#menu-close").onclick = closeMenu
+      menu.querySelectorAll("a").forEach((a) => (a.onclick = closeMenu))
+      const modal = document.querySelector("#contact-modal")
+      function openContact() {
+        if (menu.classList.contains("open")) closeMenu()
+        priorFocus = document.activeElement
+        modal.classList.add("open")
+        modal.setAttribute("aria-hidden", "false")
+        lock()
+        setTimeout(() => document.querySelector("#topic").focus(), 120)
+      }
+      function closeContact() {
+        modal.classList.remove("open")
+        modal.setAttribute("aria-hidden", "true")
+        unlock()
+        priorFocus?.focus()
+        setTimeout(() => {
+          document.querySelector("#contact-form").hidden = false
+          document.querySelector("#contact-success").hidden = true
+        }, 350)
+      }
+      document
+        .querySelectorAll(".open-contact")
+        .forEach((b) => (b.onclick = openContact))
+      document.querySelector("#modal-close").onclick = closeContact
+      document.querySelector("[data-close-modal]").onclick = closeContact
+      addEventListener("keydown", (e) => {
+        if (e.key === "Escape") {
+          if (modal.classList.contains("open")) closeContact()
+          else if (menu.classList.contains("open")) closeMenu()
+        }
+        if (e.key === "Tab") {
+          const scope = modal.classList.contains("open")
+            ? modal
+            : menu.classList.contains("open")
+              ? menu
+              : null
+          if (scope) {
+            const focusable = [
+              ...scope.querySelectorAll(
+                "a[href],button:not([disabled]),select,textarea,input"
+              ),
+            ].filter((el) => !el.hidden)
+            const first = focusable[0],
+              last = focusable.at(-1)
+            if (e.shiftKey && document.activeElement === first) {
+              e.preventDefault()
+              last.focus()
+            } else if (!e.shiftKey && document.activeElement === last) {
+              e.preventDefault()
+              first.focus()
+            }
+          }
+        }
+      })
+      document.querySelector("#contact-form").onsubmit = (e) => {
+        e.preventDefault()
+        const topic = document.querySelector("#topic").value,
+          intake =
+            document.querySelector("#intake").value ||
+            "I have not decided an intake yet.",
+          note = document.querySelector("#note").value.trim()
+        const message = `Hi EduRecruitment — I'd like help with ${topic.toLowerCase()}.\nI'm aiming to start: ${intake}\n${note ? `Optional note: ${note}\n` : ""}Could we discuss the best next step?`
+        document.querySelector("#contact-form").hidden = true
+        document.querySelector("#contact-success").hidden = false
+        document.querySelector("#success-copy").textContent =
+          "Review your message in WhatsApp before sending it."
+        document.querySelector("#whatsapp-ready").href =
+          `https://wa.me/447367911861?text=${encodeURIComponent(message)}`
+      }
+      document.querySelectorAll('a[href^="#"]').forEach((a) =>
+        a.addEventListener("click", (e) => {
+          const target = document.querySelector(a.getAttribute("href"))
+          if (!target) return
+          e.preventDefault()
+          lenis.scrollTo(target)
+        })
+      )
+    </script>
+  </body>
+</html>
