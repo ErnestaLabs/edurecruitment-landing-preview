@@ -17,11 +17,6 @@
       href="https://fonts.googleapis.com/css2?family=Onest:wght@400;500&display=swap"
       rel="stylesheet"
     />
-    <script type="importmap">
-      {
-        "imports": { "lenis": "https://cdn.jsdelivr.net/npm/lenis@1.1.18/+esm" }
-      }
-    </script>
     <style>
       :root {
         /* FOUNDATION LOCK v1: brand tokens are structural. See FOUNDATION_LOCK.md. */
@@ -47,6 +42,7 @@
       }
       html {
         font-size: 16px;
+        scroll-behavior: smooth;
       }
       html.locked {
         position: relative;
@@ -85,8 +81,12 @@
         color: inherit;
       }
       :focus-visible {
-        outline: 2px solid var(--brand-light);
-        outline-offset: 2px;
+        outline: 3px solid var(--brand-deep);
+        outline-offset: 3px;
+        box-shadow: 0 0 0 6px var(--on-brand);
+      }
+      [hidden] {
+        display: none !important;
       }
       .sr-only {
         position: absolute;
@@ -129,71 +129,6 @@
       }
       .eyebrow.light::before {
         background: var(--brand-light);
-      }
-      .loader {
-        position: fixed;
-        inset: 0;
-        z-index: 200;
-        display: grid;
-        place-items: center;
-        background: var(--brand-deep);
-        color: var(--on-brand);
-        transition: transform 850ms cubic-bezier(0.65, 0, 0.35, 1);
-      }
-      .loader.exit {
-        transform: translateY(-105%);
-      }
-      .loader-inner {
-        display: grid;
-        justify-items: center;
-        gap: 2rem;
-      }
-      .loader-brand {
-        display: flex;
-        align-items: center;
-        gap: 0.85rem;
-        font-size: 1.5rem;
-        font-weight: 500;
-        letter-spacing: 0.2em;
-        text-transform: uppercase;
-        opacity: 0;
-        transform: translateY(1rem);
-        animation: loaderBrand 0.65s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-      }
-      .brand-symbol {
-        width: 1.75rem;
-        height: 1.75rem;
-        border: 1px solid currentColor;
-        border-radius: 50%;
-        display: grid;
-        place-items: center;
-        font-size: 0.72rem;
-        letter-spacing: 0;
-      }
-      .loader-track {
-        width: 10rem;
-        height: 1px;
-        background: rgba(250, 250, 248, 0.2);
-        overflow: hidden;
-      }
-      .loader-fill {
-        height: 100%;
-        background: var(--on-brand);
-        transform: scaleX(0);
-        transform-origin: left;
-        animation: loaderFill 1280ms 120ms cubic-bezier(0.65, 0, 0.35, 1)
-          forwards;
-      }
-      @keyframes loaderBrand {
-        to {
-          opacity: 1;
-          transform: none;
-        }
-      }
-      @keyframes loaderFill {
-        to {
-          transform: scaleX(1);
-        }
       }
       .hero {
         position: relative;
@@ -324,20 +259,34 @@
         padding-bottom: 0.14em;
       }
       .word-inner,
-      .line-inner,
-      .ghost-inner {
+      .line-inner {
         display: inline-block;
         opacity: 0;
         transform: translateY(115%);
       }
+      .ghost-inner {
+        display: inline-block;
+        opacity: 1;
+        transform: none;
+      }
       .ready .hero-title .word-inner,
-      .ready .hero-tagline .line-inner,
-      .inview.visible .line-inner {
+      .ready [data-lines] .line-inner {
         opacity: 1;
         transform: none;
         transition:
           transform 1100ms cubic-bezier(0.16, 1, 0.3, 1) var(--delay),
           opacity 600ms ease var(--delay);
+      }
+      .no-script-help {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.75rem 1.25rem;
+        padding: 1rem 1.5rem 0;
+        color: var(--on-brand);
+        font-size: 0.75rem;
+      }
+      .no-script-help a {
+        text-underline-offset: 0.25rem;
       }
       .hero-bottom {
         margin-top: auto;
@@ -414,8 +363,12 @@
         margin-top: 0.75rem;
       }
       .dot {
-        padding: 0.375rem;
+        width: 2.75rem;
+        height: 2.75rem;
+        padding: 0;
         border: 0;
+        display: grid;
+        place-items: center;
         background: none;
       }
       .dot span {
@@ -424,10 +377,11 @@
         height: 0.375rem;
         border-radius: 99rem;
         background: rgba(250, 250, 248, 0.4);
-        transition: width 0.25s ease;
+        transform: scaleX(1);
+        transition: transform 0.25s ease;
       }
       .dot[aria-current="true"] span {
-        width: 1.25rem;
+        transform: scaleX(3.3);
         background: var(--on-brand);
       }
       .proof-card {
@@ -744,10 +698,6 @@
         width: 100%;
         height: 100%;
         object-fit: cover;
-        transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
-      }
-      .photo-card:hover img {
-        transform: scale(1.03);
       }
       .photo-caption {
         position: absolute;
@@ -779,25 +729,46 @@
       }
       .stats-grid {
         display: grid;
-        grid-template-columns: repeat(2, 1fr);
+        grid-template-columns: repeat(2, minmax(0, 1fr));
         gap: 3rem 2rem;
         margin-top: 4rem;
       }
       .stat {
+        min-width: 0;
         border-top: 1px solid rgba(250, 250, 248, 0.2);
         padding-top: 1.25rem;
       }
+      .stat dd {
+        min-width: 0;
+        margin: 0;
+      }
       .stat strong {
         display: block;
-        font-size: 3.75rem;
+        font-size: clamp(2.25rem, 9vw, 3.75rem);
         font-weight: 500;
+        font-variant-numeric: tabular-nums;
         letter-spacing: -0.03em;
+        overflow-wrap: anywhere;
       }
       .stat span {
         display: block;
         margin-top: 0.75rem;
         font-size: 0.875rem;
-        color: rgba(250, 250, 248, 0.65);
+        line-height: 1.5;
+        color: rgba(250, 250, 248, 0.72);
+      }
+      .facts-note {
+        max-width: 43rem;
+        margin-top: 2rem;
+        color: rgba(250, 250, 248, 0.78);
+        font-size: 0.875rem;
+        line-height: 1.7;
+      }
+      .facts-source {
+        display: block;
+        margin-top: 0.5rem;
+        color: rgba(250, 250, 248, 0.6);
+        font-size: 0.75rem;
       }
       .testimonials {
         padding: 5rem 1.5rem;
@@ -818,10 +789,6 @@
         padding: 1.75rem;
         border-radius: var(--radius-card);
         background: var(--surface);
-        transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
-      }
-      .testimonial:hover {
-        transform: translateY(-0.5rem);
       }
       .quote-mark {
         font-size: 2.25rem;
@@ -997,70 +964,16 @@
         letter-spacing: 0.1em;
         text-underline-offset: 0.35rem;
       }
-      .whatsapp-widget {
-        position: fixed;
-        right: max(1rem, env(safe-area-inset-right));
-        bottom: max(1rem, env(safe-area-inset-bottom));
-        z-index: 60;
-        display: inline-flex;
-        align-items: center;
-        gap: 0.6rem;
-        width: 3rem;
-        min-height: 3rem;
-        padding: 0;
-        justify-content: center;
-        border: 1px solid rgba(27, 42, 74, 0.15);
-        border-radius: var(--radius-pill);
-        background: var(--brand);
-        color: var(--brand-deep);
-        box-shadow: 0 0.75rem 2rem rgba(27, 42, 74, 0.22);
-        font-size: 0.75rem;
-        font-weight: 500;
-        text-decoration: none;
-        text-transform: uppercase;
-        letter-spacing: 0.08em;
-        opacity: 0;
-        transform: translateY(1rem);
-        pointer-events: none;
-        transition:
-          opacity 0.25s ease,
-          transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
-      }
-      .whatsapp-widget.show {
-        opacity: 1;
-        transform: none;
-        pointer-events: auto;
-      }
-      .whatsapp-widget.suppressed {
-        opacity: 0;
-        transform: translateY(1rem);
-        pointer-events: none;
-      }
-      .whatsapp-widget svg {
-        width: 1rem;
-        height: 1rem;
-      }
-      .whatsapp-widget span {
-        display: none;
-      }
-      @media (hover: hover) and (min-width: 768px) {
-        .whatsapp-widget:hover,
-        .whatsapp-widget:focus-visible {
-          width: auto;
-          padding: 0.75rem 1rem;
-        }
-        .whatsapp-widget:hover span,
-        .whatsapp-widget:focus-visible span {
-          display: inline;
-        }
-      }
       .menu,
       .modal {
         position: fixed;
         inset: 0;
         pointer-events: none;
+        visibility: hidden;
         opacity: 0;
-        transition: opacity 0.35s ease;
+        transition:
+          opacity 0.35s ease,
+          visibility 0s linear 0.35s;
       }
       .menu {
         z-index: 70;
@@ -1074,8 +987,10 @@
       .menu.open,
       .modal.open {
         pointer-events: auto;
+        visibility: visible;
         opacity: 1;
         transform: none;
+        transition-delay: 0s;
       }
       .menu-inner {
         height: 100%;
@@ -1089,13 +1004,18 @@
         justify-content: space-between;
       }
       .close-button {
-        width: 2.5rem;
-        height: 2.5rem;
+        width: 2.75rem;
+        height: 2.75rem;
         border: 0;
         border-radius: 50%;
+        display: grid;
+        place-items: center;
         background: rgba(250, 250, 248, 0.15);
         color: inherit;
-        font-size: 1.4rem;
+      }
+      .close-button svg {
+        width: 1.125rem;
+        height: 1.125rem;
       }
       .menu-links {
         flex: 1;
@@ -1197,6 +1117,18 @@
         text-transform: uppercase;
         letter-spacing: 0.1em;
       }
+      .conversation-note {
+        margin-top: 1.25rem;
+        padding: 1rem;
+        border: 1px solid var(--hairline);
+        border-radius: 0.75rem;
+        color: var(--ink-soft);
+        font-size: 0.8125rem;
+        line-height: 1.6;
+      }
+      .conversation-note strong {
+        color: var(--ink);
+      }
       .success {
         padding: 1.5rem;
         border-radius: var(--radius-card);
@@ -1205,7 +1137,6 @@
       }
       .success h3 {
         font-size: 1.125rem;
-        margin-top: 0.75rem;
       }
       .success p {
         font-size: 0.875rem;
@@ -1213,16 +1144,23 @@
         color: var(--ink-soft);
         margin: 0.5rem 0 1rem;
       }
-      .inview {
-        opacity: 0;
-        transform: translateY(1.75rem);
+      .success-actions {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 0.75rem;
       }
-      .inview.visible {
+      .edit-message {
+        border: 0;
+        background: transparent;
+        color: var(--ink);
+        padding: 0.75rem 1rem;
+        text-decoration: underline;
+        text-underline-offset: 0.25rem;
+      }
+      .inview {
         opacity: 1;
         transform: none;
-        transition:
-          opacity 0.7s ease var(--delay, 0ms),
-          transform 0.8s cubic-bezier(0.16, 1, 0.3, 1) var(--delay, 0ms);
       }
       @media (min-width: 640px) {
         .page {
@@ -1346,25 +1284,7 @@
           grid-template-columns: 1.4fr 1fr 1fr 1fr;
         }
       }
-      @media (max-width: 1920px) {
-        html {
-          font-size: 0.833333vw;
-        }
-      }
-      @media (max-width: 1440px) {
-        html {
-          font-size: 1.111111vw;
-        }
-      }
-      @media (max-width: 1024px) {
-        html {
-          font-size: 1.5625vw;
-        }
-      }
       @media (max-width: 640px) {
-        html {
-          font-size: 4.444444vw;
-        }
         .program-row {
           gap: 0.75rem;
         }
@@ -1381,14 +1301,6 @@
         }
         .hero-tagline {
           font-size: 1.75rem;
-        }
-        .whatsapp-widget {
-          width: 3rem;
-          padding: 0;
-          justify-content: center;
-        }
-        .whatsapp-widget span {
-          display: none;
         }
       }
       .brand-symbol,
@@ -1417,14 +1329,6 @@
     </style>
   </head>
   <body>
-    <div class="loader" id="loader" aria-hidden="true">
-      <div class="loader-inner">
-        <div class="loader-brand">
-          <span class="site-wordmark">EduRecruitment</span>
-        </div>
-        <div class="loader-track"><div class="loader-fill"></div></div>
-      </div>
-    </div>
     <!-- FOUNDATION LOCK v1: preserve direct-child order and data-foundation-section values. -->
     <main class="page" data-foundation-version="1">
       <section
@@ -1438,6 +1342,8 @@
             <img
               src="public/images/hero-graduation.jpg"
               alt="Graduates celebrating outside Guildhall Art Gallery"
+              width="1200"
+              height="1600"
               fetchpriority="high"
             />
           </div>
@@ -1446,15 +1352,17 @@
         <header class="header">
           <nav class="nav-left" aria-label="Primary">
             <a href="#support">Support &amp; guidance</a
-            ><a href="#stories">Graduate stories</a
+            ><a href="#testimonials">Graduate stories</a
             ><a href="#about-preview">About us</a>
           </nav>
           <a class="header-brand" href="#home" aria-label="EduRecruitment home"
             ><span class="site-wordmark">EduRecruitment</span></a
           >
           <div class="header-right">
-            <button class="header-action open-contact" type="button">
-              Start a conversation</button
+            <a
+              class="header-action open-contact"
+              href="mailto:hello@edurecruitment.co.uk?subject=Starting%20a%20conversation"
+              >Start a conversation</a
             ><button
               class="burger"
               id="menu-open"
@@ -1466,12 +1374,26 @@
             </button>
           </div>
         </header>
-        <h1 class="hero-title" id="hero-title" data-words="Students First"></h1>
+        <noscript>
+          <nav class="no-script-help" aria-label="Quick links">
+            <a href="#support">Explore support</a>
+            <a href="#testimonials">Read graduate stories</a>
+            <a
+              href="mailto:hello@edurecruitment.co.uk?subject=Starting%20a%20conversation"
+              >Email EduRecruitment</a
+            >
+          </nav>
+        </noscript>
+        <h1 class="hero-title" id="hero-title" data-words="Students First">
+          Students First
+        </h1>
         <div class="hero-bottom">
           <p
             class="hero-tagline"
             data-lines="Honest guidance,|personal support."
-          ></p>
+          >
+            Honest guidance,<br />personal support.
+          </p>
           <div class="hero-cluster">
             <div class="mini-slider inview" id="mini-slider">
               <article class="glass-card mini-card">
@@ -1479,6 +1401,8 @@
                   id="mini-image"
                   src="public/images/5289.jpg"
                   alt="Graduate at a graduation ceremony"
+                  width="1200"
+                  height="1600"
                 />
                 <div class="mini-copy">
                   <span class="mini-kicker" id="mini-kicker">Course choice</span
@@ -1492,6 +1416,7 @@
               <div
                 class="dots"
                 id="mini-dots"
+                role="group"
                 aria-label="Support highlights"
               ></div>
             </div>
@@ -1506,7 +1431,7 @@
                   ></span
                   ><span
                     style="
-                      background-image: url(&quot;public/images/Razvan Rosca.png&quot;);
+                      background-image: url(&quot;public/images/Razvan Rosca.webp&quot;);
                     "
                   ></span
                   ><span
@@ -1525,6 +1450,8 @@
               <img
                 src="public/images/Andrea.jpg"
                 alt="Andrea, an EduRecruitment graduate"
+                width="1170"
+                height="1737"
               />
             </article>
           </div>
@@ -1553,12 +1480,31 @@
             </div>
           </article>
         </div>
-        <h2 class="ghost-heading" id="trust-title"></h2>
+        <h2 class="ghost-heading" id="trust-title">
+          <span class="ghost-row">
+            <span class="ghost-clip"
+              ><span class="ghost-inner">Honest</span></span
+            >
+            <span class="ghost-clip"
+              ><span class="ghost-inner">Advice</span></span
+            >
+          </span>
+          <span class="ghost-row">
+            <span class="ghost-clip"
+              ><span class="ghost-inner">Personal</span></span
+            >
+            <span class="ghost-clip"
+              ><span class="ghost-inner">Support</span></span
+            >
+          </span>
+        </h2>
         <figure class="graduate-card inview">
           <img
             id="story-image"
             src="public/images/Andrea.jpg"
             alt="Andrea in graduation gown outside a university building"
+            width="1170"
+            height="1737"
           />
           <figcaption class="graduate-caption">
             <strong id="story-name">Andrea</strong
@@ -1567,6 +1513,7 @@
         </figure>
         <div class="carousel-controls">
           <button
+            type="button"
             class="arrow-button prev"
             id="story-prev"
             aria-label="Previous graduate story"
@@ -1580,8 +1527,14 @@
               <path d="M5 12h14M13 6l6 6-6 6" />
             </svg>
           </button>
-          <div class="dots" id="story-dots" aria-label="Graduate stories"></div>
+          <div
+            class="dots"
+            id="story-dots"
+            role="group"
+            aria-label="Graduate stories"
+          ></div>
           <button
+            type="button"
             class="arrow-button solid"
             id="story-next"
             aria-label="Next graduate story"
@@ -1609,10 +1562,15 @@
           class="stacked-heading inview"
           id="support-title"
           data-lines="One step|at a time"
-        ></h2>
+        >
+          One step<br />at a time
+        </h2>
         <ul class="program-list">
           <li>
-            <a class="program-row inview" href="#contact"
+            <a
+              class="program-row inview open-contact"
+              href="mailto:hello@edurecruitment.co.uk?subject=Course%20and%20university%20choice"
+              data-topic="Course &amp; university choice"
               ><span class="program-index">01</span>
               <div class="program-copy">
                 <h3>Course &amp; university choice</h3>
@@ -1632,7 +1590,10 @@
             ></a>
           </li>
           <li>
-            <a class="program-row inview" href="#contact"
+            <a
+              class="program-row inview open-contact"
+              href="mailto:hello@edurecruitment.co.uk?subject=Preparing%20an%20application"
+              data-topic="Preparing an application"
               ><span class="program-index">02</span>
               <div class="program-copy">
                 <h3>Preparing an application</h3>
@@ -1652,7 +1613,10 @@
             ></a>
           </li>
           <li>
-            <a class="program-row inview" href="#contact"
+            <a
+              class="program-row inview open-contact"
+              href="mailto:hello@edurecruitment.co.uk?subject=Personal%20statement"
+              data-topic="Personal statement"
               ><span class="program-index">03</span>
               <div class="program-copy">
                 <h3>Personal statement</h3>
@@ -1672,7 +1636,10 @@
             ></a>
           </li>
           <li>
-            <a class="program-row inview" href="#contact"
+            <a
+              class="program-row inview open-contact"
+              href="mailto:hello@edurecruitment.co.uk?subject=Student%20Finance"
+              data-topic="Student Finance"
               ><span class="program-index">04</span>
               <div class="program-copy">
                 <h3>Student Finance</h3>
@@ -1705,12 +1672,16 @@
               class="section-icon inview"
               src="public/images/PHOTO-2026-08-02-13-08-18.jpg"
               alt="Graduate celebrating at a graduation ceremony"
+              width="900"
+              height="1600"
               loading="lazy"
             />
             <h2
               class="stacked-heading inview"
               data-lines="Start from|where you|are now"
-            ></h2>
+            >
+              Start from<br />where you<br />are now
+            </h2>
             <p class="inview">
               Whether you are applying for the first time, returning after years
               away or changing career, the conversation begins with your real
@@ -1720,8 +1691,10 @@
           <div class="photo-pair">
             <figure class="photo-card inview">
               <img
-                src="public/images/Razvan Rosca.png"
+                src="public/images/Razvan Rosca.webp"
                 alt="Razvan Rosca, an EduRecruitment graduate"
+                width="944"
+                height="1068"
                 loading="lazy"
               />
               <figcaption class="photo-caption">
@@ -1735,6 +1708,8 @@
               <img
                 src="public/images/5291.jpg"
                 alt="Chiara Marini at a graduation ceremony"
+                width="1200"
+                height="1600"
                 loading="lazy"
               />
               <figcaption class="photo-caption">
@@ -1772,11 +1747,8 @@
               They worked together throughout their careers in higher education
               and student recruitment, gaining valuable experience while always
               holding onto one dream: to build a company that puts students
-              first. That dream became VM Education Recruitment.
+              first. That dream became EduRecruitment.
             </p>
-            <a class="founders-link" href="/about"
-              >Read our full story <span aria-hidden="true">→</span></a
-            >
           </div>
         </div>
       </section>
@@ -1791,28 +1763,36 @@
           class="stacked-heading inview"
           id="stats-title"
           data-lines="Clear support,|honest boundaries"
-        ></h2>
+        >
+          Clear support,<br />honest boundaries
+        </h2>
         <dl class="stats-grid">
           <div class="stat inview">
-            <dt class="sr-only">Support routes</dt>
-            <dd><strong>6</strong><span>Ways we can help</span></dd>
+            <dt class="sr-only">Beginning of our journey</dt>
+            <dd><strong>2018</strong><span>Beginning of our journey</span></dd>
           </div>
           <div class="stat inview">
-            <dt class="sr-only">Personal guidance</dt>
+            <dt class="sr-only">Students successfully enrolled</dt>
             <dd>
-              <strong>1:1</strong
-              ><span>Personal guidance around your circumstances</span>
+              <strong>3287</strong><span>Students successfully enrolled</span>
             </dd>
           </div>
           <div class="stat inview">
-            <dt class="sr-only">Journey began</dt>
-            <dd><strong>2018</strong><span>Our journey began</span></dd>
+            <dt class="sr-only">University partnerships</dt>
+            <dd><strong>35+</strong><span>University partnerships</span></dd>
           </div>
           <div class="stat inview">
-            <dt class="sr-only">Contact routes</dt>
-            <dd><strong>3</strong><span>Ways to start a conversation</span></dd>
+            <dt class="sr-only">Courses to choose from</dt>
+            <dd><strong>250+</strong><span>Courses to choose from</span></dd>
           </div>
         </dl>
+        <p class="facts-note inview" id="facts-note">
+          These figures show the experience behind our guidance. They do not
+          decide your path. We begin with your circumstances, explain the
+          options that are relevant to you, and welcome questions about how our
+          university partnerships work.
+          <span class="facts-source">Figures supplied by EduRecruitment.</span>
+        </p>
       </section>
 
       <section
@@ -1826,7 +1806,9 @@
           class="stacked-heading inview"
           id="testimonials-title"
           data-lines="In their own|words"
-        ></h2>
+        >
+          In their own<br />words
+        </h2>
         <ul class="testimonial-grid">
           <li>
             <figure class="testimonial inview">
@@ -1893,13 +1875,18 @@
       >
         <div class="footer-cta">
           <div>
-            <span class="eyebrow light">Get started</span>
+            <span class="eyebrow light">When you’re ready</span>
             <p
               class="stacked-heading inview"
               data-lines="Ready to|talk it through?"
-            ></p>
+            >
+              Ready to<br />talk it through?
+            </p>
           </div>
-          <button class="pill open-contact inview" type="button">
+          <a
+            class="pill open-contact inview"
+            href="mailto:hello@edurecruitment.co.uk?subject=Starting%20a%20conversation"
+          >
             Start a conversation
             <svg
               viewBox="0 0 24 24"
@@ -1909,7 +1896,7 @@
             >
               <path d="M5 12h14M13 6l6 6-6 6" />
             </svg>
-          </button>
+          </a>
         </div>
         <div class="footer-columns">
           <div class="footer-brand">
@@ -1944,14 +1931,14 @@
               <li><a href="#starting">First application</a></li>
               <li><a href="#starting">Returning to education</a></li>
               <li><a href="#starting">Changing career</a></li>
-              <li><a href="#stories">Graduate stories</a></li>
+              <li><a href="#testimonials">Graduate stories</a></li>
             </ul>
           </nav>
           <nav class="footer-nav" aria-label="Company">
             <h3>Company</h3>
             <ul>
-              <li><a href="/about">About</a></li>
-              <li><a href="#stories">Results</a></li>
+              <li><a href="#about-preview">About</a></li>
+              <li><a href="#testimonials">Graduate accounts</a></li>
               <li><a href="mailto:hello@edurecruitment.co.uk">Email</a></li>
               <li>
                 <a
@@ -1965,8 +1952,8 @@
           </nav>
         </div>
         <div class="bottom-bar">
-          <span>© 2026 VM Education Recruitment. All rights reserved.</span
-          ><span>Your future. Our guidance.</span>
+          <span>EduRecruitment by VM Education Recruitment.</span
+          ><span>© 2026. Your future. Our guidance.</span>
         </div>
       </footer>
     </main>
@@ -1978,51 +1965,46 @@
       aria-modal="true"
       aria-label="Navigation menu"
       aria-hidden="true"
+      inert
     >
       <div class="menu-inner">
         <div class="menu-top">
           <span class="header-brand"
             ><span class="site-wordmark">EduRecruitment</span></span
-          ><button class="close-button" id="menu-close" aria-label="Close menu">
-            ×
+          ><button
+            class="close-button"
+            id="menu-close"
+            type="button"
+            aria-label="Close menu"
+          >
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.8"
+              aria-hidden="true"
+            >
+              <path d="M6 6l12 12M18 6 6 18" />
+            </svg>
           </button>
         </div>
-        <nav class="menu-links">
+        <nav class="menu-links" aria-label="Full navigation">
           <a href="#support">Support</a><a href="#starting">Starting points</a
-          ><a href="#stories">Graduate stories</a
+          ><a href="#testimonials">Graduate stories</a
           ><a href="#about-preview">About us</a><a href="#contact">Contact</a>
         </nav>
         <div class="menu-bottom">
-          <button class="pill open-contact" type="button">
-            Start a conversation</button
+          <a
+            class="pill open-contact"
+            href="mailto:hello@edurecruitment.co.uk?subject=Starting%20a%20conversation"
+            >Start a conversation</a
           ><a href="mailto:hello@edurecruitment.co.uk">Email</a
           ><a href="tel:+447367911861">Phone</a>
         </div>
       </div>
     </div>
 
-    <a
-      class="whatsapp-widget"
-      id="whatsapp-widget"
-      href="https://wa.me/447367911861"
-      target="_blank"
-      rel="noopener noreferrer"
-      aria-label="Start a conversation with EduRecruitment on WhatsApp (opens in a new tab)"
-    >
-      <svg
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        stroke-width="1.8"
-        aria-hidden="true"
-      >
-        <path d="M7 18.5 3.5 20l1.3-3.8A8.5 8.5 0 1 1 7 18.5Z" />
-        <path d="M8.2 8.5c.7 2.8 2.5 4.6 5.3 5.3" />
-      </svg>
-      <span>WhatsApp</span>
-    </a>
-
-    <div class="modal" id="contact-modal" aria-hidden="true">
+    <div class="modal" id="contact-modal" aria-hidden="true" inert>
       <div class="modal-backdrop" data-close-modal></div>
       <section
         class="modal-panel"
@@ -2038,15 +2020,25 @@
           <button
             class="close-button"
             id="modal-close"
+            type="button"
             aria-label="Close contact dialog"
           >
-            ×
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.8"
+              aria-hidden="true"
+            >
+              <path d="M6 6l12 12M18 6 6 18" />
+            </svg>
           </button>
         </div>
         <form class="form" id="contact-form">
           <div class="field">
             <label for="topic">What are you working on?</label
             ><select id="topic" name="topic">
+              <option value="">I’m not sure yet</option>
               <option>Course &amp; university choice</option>
               <option>Preparing an application</option>
               <option>Personal statement</option>
@@ -2074,202 +2066,131 @@
               placeholder="Add any context you would like us to know."
             ></textarea>
           </div>
-          <button class="submit" type="submit">Continue on WhatsApp</button
+          <p class="conversation-note">
+            <strong>You stay in control.</strong> Your answers create a message
+            for you to review. Nothing is sent until you choose to send it in
+            WhatsApp. Prefer not to use WhatsApp? You can email us instead.
+          </p>
+          <button class="submit" type="submit">Prepare my message</button
           ><a href="mailto:hello@edurecruitment.co.uk"
             >Prefer email? hello@edurecruitment.co.uk</a
           >
         </form>
-        <div class="success" id="contact-success" hidden>
-          <span class="brand-symbol" style="margin: auto">✓</span>
-          <h3>Your message is ready</h3>
+        <div
+          class="success"
+          id="contact-success"
+          role="status"
+          aria-live="polite"
+          hidden
+        >
+          <h3 id="success-title" tabindex="-1">Your message is ready</h3>
           <p id="success-copy"></p>
-          <a
-            class="pill"
-            id="whatsapp-ready"
-            target="_blank"
-            rel="noopener noreferrer"
-            >Open WhatsApp</a
-          >
+          <div class="success-actions">
+            <button class="edit-message" id="edit-message" type="button">
+              Edit details
+            </button>
+            <a
+              class="pill"
+              id="whatsapp-ready"
+              href="https://wa.me/447367911861"
+              target="_blank"
+              rel="noopener noreferrer"
+              >Open WhatsApp</a
+            >
+          </div>
         </div>
       </section>
     </div>
 
-    <script type="module">
-      import Lenis from "lenis"
-      const reduced = matchMedia("(prefers-reduced-motion: reduce)").matches
-      const lenis = new Lenis({ smoothWheel: true })
-      const whatsappWidget = document.querySelector("#whatsapp-widget")
-      let whatsappSuppressed = false
-      let locked = true
-      lenis.stop()
-      window.scrollTo(0, 0)
-      function raf(t) {
-        lenis.raf(t)
-        parallax()
-        whatsappWidget.classList.toggle(
-          "show",
-          scrollY > innerHeight * 0.65 && !whatsappSuppressed
-        )
-        requestAnimationFrame(raf)
-      }
-      requestAnimationFrame(raf)
-      const FONT_BASE = 16,
-        BASE_W = 1920,
-        COEF = 0.6666
-      function scaleRoot() {
-        const reduction = ((BASE_W - innerWidth) / BASE_W) * 100 * COEF
-        const size = FONT_BASE - (FONT_BASE * reduction) / 100
-        if (size > FONT_BASE)
-          document.documentElement.style.fontSize = size + "px"
-        else document.documentElement.style.removeProperty("font-size")
-      }
-      scaleRoot()
-      addEventListener("resize", scaleRoot)
-      document.querySelectorAll("[data-words]").forEach(
-        (el) =>
-          (el.innerHTML = el.dataset.words
-            .split(" ")
-            .map(
-              (word, i) =>
-                `<span class="word-clip"><span class="word-inner" style="--delay:${i * 140}ms">${word}</span></span> `
-            )
-            .join(""))
-      )
-      document.querySelectorAll("[data-lines]").forEach(
-        (el) =>
-          (el.innerHTML = el.dataset.lines
-            .split("|")
-            .map(
-              (line, i) =>
-                `<span class="line-clip"><span class="line-inner" style="--delay:${i * 120}ms">${line}</span></span>`
-            )
-            .join(""))
-      )
-      const loader = document.querySelector("#loader")
-      let exited = false
-      function exitLoader() {
-        if (exited) return
-        exited = true
-        document.documentElement.classList.add("ready")
-        loader.classList.add("exit")
-        locked = false
-        lenis.start()
-        setTimeout(() => loader.remove(), reduced ? 0 : 850)
-      }
-      const min = reduced ? 200 : 1400
-      if (document.readyState === "complete") setTimeout(exitLoader, min)
-      else
-        addEventListener("load", () => setTimeout(exitLoader, min), {
-          once: true,
-        })
-      setTimeout(exitLoader, reduced ? 300 : 2600)
-      function parallax() {
-        const hero = document.querySelector(".hero"),
-          rect = hero.getBoundingClientRect(),
-          progress = Math.max(
-            0,
-            Math.min(1, (innerHeight - rect.top) / (innerHeight + rect.height))
+    <script>
+      const reduced = matchMedia("(prefers-reduced-motion: reduce)").matches;
+      const page = document.querySelector("main");
+
+      document.querySelectorAll("[data-words]").forEach((el) => {
+        el.innerHTML = el.dataset.words
+          .split(" ")
+          .map(
+            (word, i) =>
+              `<span class="word-clip"><span class="word-inner" style="--delay:${i * 140}ms">${word}</span></span> `,
           )
-        document.querySelector("#hero-media").style.transform =
-          `translateY(${progress * 12}%)`
-        const trust = document.querySelector(".trust"),
-          tr = trust.getBoundingClientRect(),
-          p = Math.max(
-            0,
-            Math.min(1, (innerHeight - tr.top) / (innerHeight + tr.height))
+          .join("");
+      });
+      document.querySelectorAll("[data-lines]").forEach((el) => {
+        el.innerHTML = el.dataset.lines
+          .split("|")
+          .map(
+            (line, i) =>
+              `<span class="line-clip"><span class="line-inner" style="--delay:${i * 120}ms">${line}</span></span>`,
           )
-        document.querySelectorAll(".ghost-inner").forEach((el, i) => {
-          const ranges = [
-            [-3, 3],
-            [3, -3],
-            [-2, 4],
-            [4, -3],
-          ][i]
-          if (ranges)
-            el.style.translate = `${ranges[0] + (ranges[1] - ranges[0]) * p}% 0`
-        })
-      }
-      const observer = new IntersectionObserver(
-        (entries) =>
-          entries.forEach((e) => {
-            if (e.isIntersecting) {
-              e.target.classList.add("visible")
-              observer.unobserve(e.target)
-            }
-          }),
-        { threshold: 0.12 }
-      )
-      document.querySelectorAll(".inview").forEach((el, i) => {
-        el.style.setProperty("--delay", `${Math.min((i % 4) * 90, 270)}ms`)
-        observer.observe(el)
-      })
-      const whatsappBlockers = new Set()
-      const whatsappObserver = new IntersectionObserver(
-        (entries) => {
-          entries.forEach((entry) => {
-            if (entry.isIntersecting) whatsappBlockers.add(entry.target)
-            else whatsappBlockers.delete(entry.target)
-          })
-          whatsappSuppressed = whatsappBlockers.size > 0
-          whatsappWidget.classList.toggle("suppressed", whatsappSuppressed)
-        },
-        { threshold: 0.12 }
-      )
-      ;["#about-preview", "#contact"].forEach((selector) =>
-        whatsappObserver.observe(document.querySelector(selector))
-      )
+          .join("");
+      });
+      requestAnimationFrame(() =>
+        document.documentElement.classList.add("ready"),
+      );
+
       const mini = [
         {
           image: "public/images/5289.jpg",
+          alt: "Graduate at a graduation ceremony",
           kicker: "Course choice",
           title: "Options shaped around your goals",
           cta: "See the support →",
         },
         {
           image: "public/images/5292.jpg",
+          alt: "Graduate receiving personal application guidance",
           kicker: "Application guidance",
           title: "Every step explained clearly",
           cta: "See how we help →",
         },
         {
           image: "public/images/5291.jpg",
+          alt: "Graduate celebrating at a graduation ceremony",
           kicker: "Student Finance",
           title: "Understand what comes next",
           cta: "Talk it through →",
         },
-      ]
-      let miniIndex = 0
-      const miniDots = document.querySelector("#mini-dots")
+      ];
+      let miniIndex = 0;
+      const miniDots = document.querySelector("#mini-dots");
       mini.forEach((_, i) => {
-        const b = document.createElement("button")
-        b.className = "dot"
-        b.innerHTML = "<span></span>"
-        b.ariaLabel = `Show highlight ${i + 1}`
-        b.onclick = () => setMini(i)
-        miniDots.append(b)
-      })
-      function setMini(i) {
-        miniIndex = i
-        const m = mini[i],
-          card = document.querySelector(".mini-card")
-        card.style.opacity = 0
-        card.style.transform = "translateY(1rem) scale(.96)"
-        setTimeout(() => {
-          document.querySelector("#mini-image").src = m.image
-          document.querySelector("#mini-kicker").textContent = m.kicker
-          document.querySelector("#mini-title").textContent = m.title
-          document.querySelector("#mini-link").textContent = m.cta
-          card.style.opacity = 1
-          card.style.transform = "none"
-        }, 180)
-        ;[...miniDots.children].forEach((d, n) =>
-          d.setAttribute("aria-current", n === i ? "true" : "false")
-        )
+        const button = document.createElement("button");
+        button.className = "dot";
+        button.innerHTML = "<span></span>";
+        button.ariaLabel = `Show highlight ${i + 1}`;
+        button.addEventListener("click", () => setMini(i));
+        miniDots.append(button);
+      });
+      function setMini(index) {
+        miniIndex = index;
+        const item = mini[index];
+        const card = document.querySelector(".mini-card");
+        if (!reduced) {
+          card.style.opacity = 0;
+          card.style.transform = "translateY(.5rem)";
+        }
+        setTimeout(
+          () => {
+            const image = document.querySelector("#mini-image");
+            image.src = item.image;
+            image.alt = item.alt;
+            document.querySelector("#mini-kicker").textContent = item.kicker;
+            document.querySelector("#mini-title").textContent = item.title;
+            document.querySelector("#mini-link").textContent = item.cta;
+            card.style.opacity = 1;
+            card.style.transform = "none";
+          },
+          reduced ? 0 : 140,
+        );
+        [...miniDots.children].forEach((dot, dotIndex) =>
+          dot.setAttribute(
+            "aria-current",
+            dotIndex === index ? "true" : "false",
+          ),
+        );
       }
-      setMini(0)
-      setInterval(() => {
-        if (!document.hidden && !reduced) setMini((miniIndex + 1) % mini.length)
-      }, 3800)
+      setMini(0);
+
       const stories = [
         {
           words: ["Honest", "Advice", "Personal", "Support"],
@@ -2279,7 +2200,7 @@
         },
         {
           words: ["Every", "Step", "Clearly", "Explained"],
-          image: "public/images/Razvan Rosca.png",
+          image: "public/images/Razvan Rosca.webp",
           name: "Razvan Rosca",
           alt: "Razvan Rosca, an EduRecruitment graduate",
         },
@@ -2289,148 +2210,199 @@
           name: "Chiara Marini",
           alt: "Chiara Marini at a graduation ceremony",
         },
-      ]
-      let storyIndex = 0
-      const storyDots = document.querySelector("#story-dots")
+      ];
+      let storyIndex = 0;
+      const storyDots = document.querySelector("#story-dots");
       stories.forEach((_, i) => {
-        const b = document.createElement("button")
-        b.className = "dot"
-        b.innerHTML = "<span></span>"
-        b.ariaLabel = `Show graduate ${i + 1}`
-        b.onclick = () => setStory(i)
-        storyDots.append(b)
-      })
-      function setStory(i) {
-        storyIndex = (i + stories.length) % stories.length
-        const s = stories[storyIndex],
-          heading = document.querySelector("#trust-title")
-        heading.classList.remove("reveal")
-        heading.innerHTML = `<span class="ghost-row"><span class="ghost-clip"><span class="ghost-inner" style="--delay:0ms">${s.words[0]}</span></span><span class="ghost-clip"><span class="ghost-inner" style="--delay:80ms">${s.words[1]}</span></span></span><span class="ghost-row"><span class="ghost-clip"><span class="ghost-inner" style="--delay:160ms">${s.words[2]}</span></span><span class="ghost-clip"><span class="ghost-inner" style="--delay:240ms">${s.words[3]}</span></span></span>`
-        requestAnimationFrame(() => heading.classList.add("reveal"))
-        const img = document.querySelector("#story-image")
-        img.style.opacity = 0
-        setTimeout(() => {
-          img.src = s.image
-          img.alt = s.alt
-          document.querySelector("#story-name").textContent = s.name
-          img.style.opacity = 1
-        }, 180)
-        ;[...storyDots.children].forEach((d, n) =>
-          d.setAttribute("aria-current", n === storyIndex ? "true" : "false")
-        )
-      }
-      document.querySelector("#story-prev").onclick = () =>
-        setStory(storyIndex - 1)
-      document.querySelector("#story-next").onclick = () =>
-        setStory(storyIndex + 1)
-      setStory(0)
-      let priorFocus = null
-      const menu = document.querySelector("#menu"),
-        menuOpen = document.querySelector("#menu-open")
-      function lock() {
-        locked = true
-        lenis.stop()
-        document.documentElement.classList.add("locked")
-      }
-      function unlock() {
-        locked = false
-        lenis.start()
-        document.documentElement.classList.remove("locked")
-      }
-      function openMenu() {
-        priorFocus = document.activeElement
-        menu.classList.add("open")
-        menu.setAttribute("aria-hidden", "false")
-        menuOpen.setAttribute("aria-expanded", "true")
-        lock()
-        setTimeout(() => document.querySelector("#menu-close").focus(), 80)
-      }
-      function closeMenu() {
-        menu.classList.remove("open")
-        menu.setAttribute("aria-hidden", "true")
-        menuOpen.setAttribute("aria-expanded", "false")
-        unlock()
-        priorFocus?.focus()
-      }
-      menuOpen.onclick = openMenu
-      document.querySelector("#menu-close").onclick = closeMenu
-      menu.querySelectorAll("a").forEach((a) => (a.onclick = closeMenu))
-      const modal = document.querySelector("#contact-modal")
-      function openContact() {
-        if (menu.classList.contains("open")) closeMenu()
-        priorFocus = document.activeElement
-        modal.classList.add("open")
-        modal.setAttribute("aria-hidden", "false")
-        lock()
-        setTimeout(() => document.querySelector("#topic").focus(), 120)
-      }
-      function closeContact() {
-        modal.classList.remove("open")
-        modal.setAttribute("aria-hidden", "true")
-        unlock()
-        priorFocus?.focus()
-        setTimeout(() => {
-          document.querySelector("#contact-form").hidden = false
-          document.querySelector("#contact-success").hidden = true
-        }, 350)
+        const button = document.createElement("button");
+        button.className = "dot";
+        button.innerHTML = "<span></span>";
+        button.ariaLabel = `Show graduate ${i + 1}`;
+        button.addEventListener("click", () => setStory(i));
+        storyDots.append(button);
+      });
+      function setStory(index) {
+        storyIndex = (index + stories.length) % stories.length;
+        const story = stories[storyIndex];
+        const heading = document.querySelector("#trust-title");
+        heading.classList.remove("reveal");
+        heading.innerHTML = `<span class="ghost-row"><span class="ghost-clip"><span class="ghost-inner" style="--delay:0ms">${story.words[0]}</span></span><span class="ghost-clip"><span class="ghost-inner" style="--delay:80ms">${story.words[1]}</span></span></span><span class="ghost-row"><span class="ghost-clip"><span class="ghost-inner" style="--delay:160ms">${story.words[2]}</span></span><span class="ghost-clip"><span class="ghost-inner" style="--delay:240ms">${story.words[3]}</span></span></span>`;
+        requestAnimationFrame(() => heading.classList.add("reveal"));
+        const image = document.querySelector("#story-image");
+        if (!reduced) image.style.opacity = 0;
+        setTimeout(
+          () => {
+            image.src = story.image;
+            image.alt = story.alt;
+            document.querySelector("#story-name").textContent = story.name;
+            image.style.opacity = 1;
+          },
+          reduced ? 0 : 140,
+        );
+        [...storyDots.children].forEach((dot, dotIndex) =>
+          dot.setAttribute(
+            "aria-current",
+            dotIndex === storyIndex ? "true" : "false",
+          ),
+        );
       }
       document
-        .querySelectorAll(".open-contact")
-        .forEach((b) => (b.onclick = openContact))
-      document.querySelector("#modal-close").onclick = closeContact
-      document.querySelector("[data-close-modal]").onclick = closeContact
-      addEventListener("keydown", (e) => {
-        if (e.key === "Escape") {
-          if (modal.classList.contains("open")) closeContact()
-          else if (menu.classList.contains("open")) closeMenu()
-        }
-        if (e.key === "Tab") {
-          const scope = modal.classList.contains("open")
-            ? modal
-            : menu.classList.contains("open")
-              ? menu
-              : null
-          if (scope) {
-            const focusable = [
-              ...scope.querySelectorAll(
-                "a[href],button:not([disabled]),select,textarea,input"
-              ),
-            ].filter((el) => !el.hidden)
-            const first = focusable[0],
-              last = focusable.at(-1)
-            if (e.shiftKey && document.activeElement === first) {
-              e.preventDefault()
-              last.focus()
-            } else if (!e.shiftKey && document.activeElement === last) {
-              e.preventDefault()
-              first.focus()
-            }
-          }
-        }
-      })
-      document.querySelector("#contact-form").onsubmit = (e) => {
-        e.preventDefault()
-        const topic = document.querySelector("#topic").value,
-          intake =
-            document.querySelector("#intake").value ||
-            "I have not decided an intake yet.",
-          note = document.querySelector("#note").value.trim()
-        const message = `Hi EduRecruitment — I'd like help with ${topic.toLowerCase()}.\nI'm aiming to start: ${intake}\n${note ? `Optional note: ${note}\n` : ""}Could we discuss the best next step?`
-        document.querySelector("#contact-form").hidden = true
-        document.querySelector("#contact-success").hidden = false
-        document.querySelector("#success-copy").textContent =
-          "Review your message in WhatsApp before sending it."
-        document.querySelector("#whatsapp-ready").href =
-          `https://wa.me/447367911861?text=${encodeURIComponent(message)}`
+        .querySelector("#story-prev")
+        .addEventListener("click", () => setStory(storyIndex - 1));
+      document
+        .querySelector("#story-next")
+        .addEventListener("click", () => setStory(storyIndex + 1));
+      setStory(0);
+
+      let priorFocus = null;
+      const menu = document.querySelector("#menu");
+      const menuOpen = document.querySelector("#menu-open");
+      const modal = document.querySelector("#contact-modal");
+      const form = document.querySelector("#contact-form");
+      const success = document.querySelector("#contact-success");
+
+      function lockPage() {
+        document.documentElement.classList.add("locked");
+        page.inert = true;
       }
-      document.querySelectorAll('a[href^="#"]').forEach((a) =>
-        a.addEventListener("click", (e) => {
-          const target = document.querySelector(a.getAttribute("href"))
-          if (!target) return
-          e.preventDefault()
-          lenis.scrollTo(target)
-        })
-      )
+      function unlockPage() {
+        document.documentElement.classList.remove("locked");
+        page.inert = false;
+      }
+      function openMenu() {
+        priorFocus = document.activeElement;
+        menu.inert = false;
+        menu.classList.add("open");
+        menu.setAttribute("aria-hidden", "false");
+        menuOpen.setAttribute("aria-expanded", "true");
+        lockPage();
+        setTimeout(() => document.querySelector("#menu-close").focus(), 50);
+      }
+      function closeMenu({ restoreFocus = true } = {}) {
+        menu.classList.remove("open");
+        menu.setAttribute("aria-hidden", "true");
+        menu.inert = true;
+        menuOpen.setAttribute("aria-expanded", "false");
+        unlockPage();
+        if (restoreFocus) priorFocus?.focus();
+      }
+      function openContact(trigger) {
+        const openedFromMenu = trigger?.closest?.("#menu");
+        if (menu.classList.contains("open")) {
+          closeMenu({ restoreFocus: false });
+        }
+        priorFocus = openedFromMenu
+          ? menuOpen
+          : trigger || document.activeElement;
+        const topic = trigger?.dataset?.topic || "";
+        document.querySelector("#topic").value = topic;
+        modal.inert = false;
+        modal.classList.add("open");
+        modal.setAttribute("aria-hidden", "false");
+        lockPage();
+        setTimeout(() => document.querySelector("#topic").focus(), 80);
+      }
+      function closeContact() {
+        modal.classList.remove("open");
+        modal.setAttribute("aria-hidden", "true");
+        modal.inert = true;
+        unlockPage();
+        priorFocus?.focus();
+        setTimeout(
+          () => {
+            form.hidden = false;
+            success.hidden = true;
+          },
+          reduced ? 0 : 350,
+        );
+      }
+
+      menuOpen.addEventListener("click", openMenu);
+      document
+        .querySelector("#menu-close")
+        .addEventListener("click", () => closeMenu());
+      menu
+        .querySelectorAll("a")
+        .forEach((link) =>
+          link.addEventListener("click", () =>
+            closeMenu({ restoreFocus: false }),
+          ),
+        );
+      document.querySelectorAll(".open-contact").forEach((trigger) =>
+        trigger.addEventListener("click", (event) => {
+          event.preventDefault();
+          openContact(trigger);
+        }),
+      );
+      document
+        .querySelector("#modal-close")
+        .addEventListener("click", closeContact);
+      document
+        .querySelector("[data-close-modal]")
+        .addEventListener("click", closeContact);
+
+      addEventListener("keydown", (event) => {
+        if (event.key === "Escape") {
+          if (modal.classList.contains("open")) closeContact();
+          else if (menu.classList.contains("open")) closeMenu();
+        }
+        if (event.key !== "Tab") return;
+        const scope = modal.classList.contains("open")
+          ? modal
+          : menu.classList.contains("open")
+            ? menu
+            : null;
+        if (!scope) return;
+        const focusable = [
+          ...scope.querySelectorAll(
+            'a[href],button:not([disabled]),select,textarea,input,[tabindex]:not([tabindex="-1"])',
+          ),
+        ].filter(
+          (element) => !element.hidden && element.getClientRects().length > 0,
+        );
+        const first = focusable[0];
+        const last = focusable.at(-1);
+        if (event.shiftKey && document.activeElement === first) {
+          event.preventDefault();
+          last.focus();
+        } else if (!event.shiftKey && document.activeElement === last) {
+          event.preventDefault();
+          first.focus();
+        }
+      });
+
+      form.addEventListener("submit", (event) => {
+        event.preventDefault();
+        const topic = document.querySelector("#topic").value;
+        const intake = document.querySelector("#intake").value;
+        const note = document.querySelector("#note").value.trim();
+        const opening = topic
+          ? `I'd like help with ${topic.toLowerCase()}.`
+          : "I'm not sure where to start, and I'd appreciate some guidance.";
+        const timing = intake
+          ? `I'm aiming to start: ${intake}.`
+          : "I haven't decided when I'd like to start yet.";
+        const message = `Hi EduRecruitment — ${opening}
+${timing}
+${
+  note
+    ? `Optional note: ${note}
+`
+    : ""
+}Could we talk through what might make sense for me?`;
+        form.hidden = true;
+        success.hidden = false;
+        document.querySelector("#success-copy").textContent =
+          "Review your message in WhatsApp. Nothing is sent until you choose to send it.";
+        document.querySelector("#whatsapp-ready").href =
+          `https://wa.me/447367911861?text=${encodeURIComponent(message)}`;
+        document.querySelector("#success-title").focus();
+      });
+      document.querySelector("#edit-message").addEventListener("click", () => {
+        success.hidden = true;
+        form.hidden = false;
+        document.querySelector("#topic").focus();
+      });
     </script>
   </body>
 </html>
