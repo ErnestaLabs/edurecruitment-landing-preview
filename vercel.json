@@ -1,4 +1,11 @@
 {
   "outputDirectory": ".",
-  "cleanUrls": true
+  "cleanUrls": true,
+  "redirects": [
+    {
+      "source": "/about",
+      "destination": "/#about-preview",
+      "permanent": false
+    }
+  ]
 }
