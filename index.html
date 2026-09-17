@@ -702,6 +702,116 @@
         transform: translateX(0.45rem);
         opacity: 1;
       }
+      .partner-universities {
+        margin-top: 5rem;
+        padding-top: 3rem;
+        border-top: 1px solid var(--hairline);
+      }
+      .partner-heading {
+        max-width: 34rem;
+      }
+      .partner-heading h3 {
+        margin: 1rem 0 0;
+        font-size: 2rem;
+        font-weight: 500;
+        line-height: 1.05;
+        letter-spacing: -0.025em;
+      }
+      .partner-heading p {
+        margin-top: 1rem;
+        color: var(--ink-soft);
+        font-size: 0.875rem;
+        line-height: 1.7;
+      }
+      .partner-list {
+        margin-top: 2.5rem;
+        border-top: 1px solid var(--hairline);
+      }
+      .partner-item {
+        border-bottom: 1px solid var(--hairline);
+      }
+      .partner-item summary {
+        display: grid;
+        grid-template-columns: 8rem minmax(0, 1fr) auto;
+        align-items: center;
+        gap: 1.5rem;
+        min-height: 7rem;
+        padding: 1rem 0;
+        cursor: pointer;
+        list-style: none;
+      }
+      .partner-item summary::-webkit-details-marker {
+        display: none;
+      }
+      .partner-logo {
+        width: 8rem;
+        height: 4rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .partner-logo img {
+        width: auto;
+        height: auto;
+        max-width: 100%;
+        max-height: 100%;
+        object-fit: contain;
+      }
+      .partner-copy {
+        min-width: 0;
+      }
+      .partner-copy strong {
+        display: block;
+        font-size: 1rem;
+        font-weight: 500;
+      }
+      .partner-meta {
+        display: block;
+        margin-top: 0.4rem;
+        color: var(--ink-soft);
+        font-size: 0.75rem;
+        line-height: 1.5;
+      }
+      .partner-toggle {
+        color: var(--ink-soft);
+        font-size: 0.75rem;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+      }
+      .partner-toggle::after {
+        content: "View courses";
+      }
+      .partner-item[open] .partner-toggle::after {
+        content: "Hide courses";
+      }
+      .partner-courses {
+        padding: 0 0 2rem 9.5rem;
+      }
+      .partner-courses h4 {
+        margin: 0 0 1rem;
+        font-size: 0.75rem;
+        font-weight: 500;
+        text-transform: uppercase;
+        letter-spacing: 0.12em;
+        color: var(--ink-soft);
+      }
+      .course-list {
+        list-style: none;
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 0;
+        margin: 0;
+        padding: 0;
+        border-top: 1px solid var(--hairline);
+      }
+      .course-list li {
+        min-width: 0;
+        padding: 0.85rem 1rem 0.85rem 0;
+        border-bottom: 1px solid var(--hairline);
+        color: var(--ink);
+        font-size: 0.8125rem;
+        line-height: 1.4;
+      }
       .facilities {
         margin-top: -2.5rem;
         padding: 4rem 1.5rem 5rem;
@@ -1385,6 +1495,24 @@
           height: 2.5rem;
           flex: none;
         }
+        .partner-item summary {
+          grid-template-columns: 5.5rem minmax(0, 1fr);
+          gap: 1rem;
+          min-height: 6.5rem;
+        }
+        .partner-logo {
+          width: 5.5rem;
+          height: 3.5rem;
+        }
+        .partner-toggle {
+          grid-column: 2;
+        }
+        .partner-courses {
+          padding: 0 0 2rem;
+        }
+        .course-list {
+          grid-template-columns: 1fr;
+        }
         .founders-ghost {
           font-size: 12vw;
         }
@@ -1758,6 +1886,181 @@
             ></a>
           </li>
         </ul>
+        <section
+          class="partner-universities inview"
+          id="universities"
+          aria-labelledby="partners-title"
+        >
+          <div class="partner-heading">
+            <span class="eyebrow">Partner universities</span>
+            <h3 id="partners-title">Explore courses by university</h3>
+            <p>
+              Open a university to see its listed courses, locations, attendance
+              pattern and intake months. We can help you compare what fits your
+              circumstances.
+            </p>
+          </div>
+          <div class="partner-list">
+            <details class="partner-item">
+              <summary>
+                <span class="partner-logo">
+                  <img
+                    src="public/logos/universities/aru.svg"
+                    alt="Anglia Ruskin University London logo"
+                    loading="lazy"
+                  />
+                </span>
+                <span class="partner-copy">
+                  <strong>Anglia Ruskin University (ARU London)</strong>
+                  <span class="partner-meta"
+                    >London · 2 days per week · September, January, May</span
+                  >
+                </span>
+                <span class="partner-toggle" aria-hidden="true"></span>
+              </summary>
+              <div class="partner-courses">
+                <h4>Available courses</h4>
+                <ul class="course-list">
+                  <li>Accounting and Finance</li>
+                  <li>Business Management</li>
+                  <li>Business and Marketing</li>
+                  <li>Computer Science</li>
+                  <li>Health and Social Care</li>
+                  <li>International Business Management</li>
+                  <li>Law</li>
+                </ul>
+              </div>
+            </details>
+            <details class="partner-item">
+              <summary>
+                <span class="partner-logo">
+                  <img
+                    src="public/logos/universities/gbs.svg"
+                    alt="Global Banking School logo"
+                    loading="lazy"
+                  />
+                </span>
+                <span class="partner-copy">
+                  <strong>Global Banking School (GBS)</strong>
+                  <span class="partner-meta"
+                    >London, Birmingham, Manchester, Leeds · 2 days per week ·
+                    September, January, May</span
+                  >
+                </span>
+                <span class="partner-toggle" aria-hidden="true"></span>
+              </summary>
+              <div class="partner-courses">
+                <h4>Available courses</h4>
+                <ul class="course-list">
+                  <li>Accounting and Financial Management</li>
+                  <li>Business and Tourism Management</li>
+                  <li>Business and Events Management</li>
+                  <li>Business and Human Resource Management</li>
+                  <li>Business and Marketing Management</li>
+                  <li>Business Management</li>
+                  <li>Construction Management</li>
+                  <li>Digital Technologies</li>
+                  <li>Health, Wellbeing and Social Care</li>
+                  <li>Project Management</li>
+                </ul>
+              </div>
+            </details>
+            <details class="partner-item">
+              <summary>
+                <span class="partner-logo">
+                  <img
+                    src="public/logos/universities/uclan.svg"
+                    alt="University of Central Lancashire logo"
+                    loading="lazy"
+                  />
+                </span>
+                <span class="partner-copy">
+                  <strong>University of Central Lancashire (UCLan)</strong>
+                  <span class="partner-meta"
+                    >London · 2 days per week · September, January, May</span
+                  >
+                </span>
+                <span class="partner-toggle" aria-hidden="true"></span>
+              </summary>
+              <div class="partner-courses">
+                <h4>Available courses</h4>
+                <ul class="course-list">
+                  <li>Business and Management</li>
+                  <li>Business and Marketing</li>
+                  <li>Cyber Security</li>
+                  <li>Data Science</li>
+                  <li>Finance and Accounting</li>
+                  <li>Health and Social Care</li>
+                  <li>Law</li>
+                  <li>Software Engineering</li>
+                </ul>
+              </div>
+            </details>
+            <details class="partner-item">
+              <summary>
+                <span class="partner-logo">
+                  <img
+                    src="public/logos/universities/lsc.png"
+                    alt="London School of Commerce logo"
+                    width="1397"
+                    height="935"
+                    loading="lazy"
+                  />
+                </span>
+                <span class="partner-copy">
+                  <strong>London School of Commerce</strong>
+                  <span class="partner-meta"
+                    >London · 2 days per week · September, February, June</span
+                  >
+                </span>
+                <span class="partner-toggle" aria-hidden="true"></span>
+              </summary>
+              <div class="partner-courses">
+                <h4>Available courses</h4>
+                <ul class="course-list">
+                  <li>Accounting</li>
+                  <li>Business Studies</li>
+                  <li>Computer Science</li>
+                  <li>Hospitality Management</li>
+                  <li>Information Technology</li>
+                  <li>Management</li>
+                  <li>MBA</li>
+                  <li>Public Health</li>
+                </ul>
+              </div>
+            </details>
+            <details class="partner-item">
+              <summary>
+                <span class="partner-logo">
+                  <img
+                    src="public/logos/universities/regent.svg"
+                    alt="Regent College London logo"
+                    loading="lazy"
+                  />
+                </span>
+                <span class="partner-copy">
+                  <strong>Regent College London</strong>
+                  <span class="partner-meta"
+                    >London · 2 days per week · September, January, May</span
+                  >
+                </span>
+                <span class="partner-toggle" aria-hidden="true"></span>
+              </summary>
+              <div class="partner-courses">
+                <h4>Available courses</h4>
+                <ul class="course-list">
+                  <li>Accounting and Finance</li>
+                  <li>Business Management</li>
+                  <li>Construction Management</li>
+                  <li>Health and Social Care</li>
+                  <li>Law</li>
+                  <li>Marketing</li>
+                  <li>Project Management</li>
+                </ul>
+              </div>
+            </details>
+          </div>
+        </section>
       </section>
 
       <section
